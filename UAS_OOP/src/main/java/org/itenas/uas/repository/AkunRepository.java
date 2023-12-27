@@ -10,4 +10,6 @@ package org.itenas.uas.repository;
  */
 public interface AkunRepository<T, ID> {
     T login(String username, String password);
+    ID register(T object);
+    boolean cekData(String id);
 }
