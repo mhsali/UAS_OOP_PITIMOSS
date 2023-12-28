@@ -9,7 +9,7 @@ import org.itenas.uas.repository.CrudRepository;
 
 /**
  *
- * @author Kelompok 1
+ * @author Billhafidz
  */
 public interface MemberService extends CrudRepository<Member, String>{
     
