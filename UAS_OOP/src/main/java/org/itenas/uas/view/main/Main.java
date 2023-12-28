@@ -7,6 +7,8 @@ package org.itenas.uas.view.main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import org.itenas.uas.view.component.PanelCover;
 import net.miginfocom.swing.MigLayout;
 import org.itenas.uas.view.component.PanelLoginAndRegister;
@@ -20,14 +22,14 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  */
 public class Main extends javax.swing.JFrame {
 
+    private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout layout;
     private PanelCover cover;
     private PanelLoginAndRegister loginAndRegister;
-    private boolean isLogin;
+    private boolean isLogin = true;
     private final double addSize = 30;
     private final double coverSize = 45;
     private final double loginSize = 60;
-    private final DecimalFormat df = new DecimalFormat("##0.###");
     
     
     public Main() {
@@ -39,28 +41,41 @@ public class Main extends javax.swing.JFrame {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
         loginAndRegister = new PanelLoginAndRegister();
-        TimingTarget target = new TimingTargetAdapter(){
+        TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
                 double fractionCover;
-                double fractionlogin;
+                double fractionLogin;
                 double size = coverSize;
-                if(fraction <= 0.5f){
+                if (fraction <= 0.5f) {
                     size += fraction * addSize;
-                } else{
+                } else {
                     size += addSize - fraction * addSize;
                 }
-                if(isLogin){
+                if (isLogin) {
                     fractionCover = 1f - fraction;
-                    fractionlogin = fraction;
-                } else{
+                    fractionLogin = fraction;
+                    if (fraction >= 0.5f) {
+                        cover.registerRight(fractionCover * 100);
+                    } else {
+                        cover.loginRight(fractionLogin * 100);
+                    }
+                } else {
                     fractionCover = fraction;
-                    fractionlogin = 1f - fraction;
+                    fractionLogin = 1f - fraction;
+                    if (fraction <= 0.5f) {
+                        cover.registerLeft(fraction * 100);
+                    } else {
+                        cover.loginLeft((1f - fraction) * 100);
+                    }
+                }
+                if (fraction >= 0.5f) {
+                    loginAndRegister.showRegister(isLogin);
                 }
                 fractionCover = Double.valueOf(df.format(fractionCover));
-                fractionlogin = Double.valueOf(df.format(fractionlogin));
+                fractionLogin = Double.valueOf(df.format(fractionLogin));
                 layout.setComponentConstraints(cover, "width " +size+ "%, pos " +fractionCover+"al 0 n 100%");
-                layout.setComponentConstraints(loginAndRegister, "width " +loginSize+ "%, pos " +fractionlogin+"al 0 n 100%");
+                layout.setComponentConstraints(loginAndRegister, "width " +loginSize+ "%, pos " +fractionLogin+"al 0 n 100%");
                 background.revalidate();;
             }
 
@@ -70,13 +85,15 @@ public class Main extends javax.swing.JFrame {
             }
             
         };
-        Animator animator = new Animator(1000, target);
+        Animator animator = new Animator(800, target);
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
         animator.setResolution(0);
         background.setLayout(layout);
-        background.add(cover, "width "+coverSize+"%, pos 0al 0 n 100%");
-        background.add(loginAndRegister, "width "+loginSize+"%, pos 1al 0 n 100%");
+        background.add(cover, "width "+coverSize+"%, pos " + (isLogin ? "1al" : "0al") + " 0 n 100%");
+        background.add(loginAndRegister, "width "+loginSize+"%, pos " + (isLogin ? "0al" : "1al") + " 0 n 100%");
+        loginAndRegister.showRegister(!isLogin);
+        cover.login(isLogin);
         cover.addEvent(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
