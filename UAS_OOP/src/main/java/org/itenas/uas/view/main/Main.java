@@ -11,6 +11,10 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import org.itenas.uas.view.component.PanelCover;
 import net.miginfocom.swing.MigLayout;
+import org.itenas.uas.pojo.Member;
+import org.itenas.uas.service.AkunService;
+import org.itenas.uas.serviceimpl.AkunServiceImpl;
+import org.itenas.uas.view.component.Message;
 import org.itenas.uas.view.component.PanelLoginAndRegister;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -27,10 +31,10 @@ public class Main extends javax.swing.JFrame {
     private PanelCover cover;
     private PanelLoginAndRegister loginAndRegister;
     private boolean isLogin = true;
-    private final double addSize = 30;
+    private final double addSize = 25;
     private final double coverSize = 45;
     private final double loginSize = 60;
-    
+    private AkunService akunService;    
     
     public Main() {
         initComponents();
@@ -40,7 +44,19 @@ public class Main extends javax.swing.JFrame {
     private void init(){
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
-        loginAndRegister = new PanelLoginAndRegister();
+        ActionListener eventRegister = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Tes");
+            }
+        };
+        ActionListener eventLogin = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Tes");
+            }
+        };
+        loginAndRegister = new PanelLoginAndRegister(eventRegister, eventLogin);
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {

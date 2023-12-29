@@ -66,15 +66,9 @@ public class AkunServiceImpl implements AkunService{
     @Override
     public Integer register(Member object) {
         int result = 0;
-        boolean cek = false;
 
         try {
-            cek = cekData(object.getId());
-            if (cek != true) {
-                result = 1;
-                return result;
-            }
-
+            
             conMan = new ConnectionManager();
             conn = conMan.connect();
         
@@ -124,4 +118,33 @@ public class AkunServiceImpl implements AkunService{
         }
         return flag;
     }
+
+    @Override
+    public boolean cekUsername(String username) {
+        Akun akun = null;
+        String sql = "SELECT id_akun, username FROM akun "
+                + "WHERE username = '" +username+ "';";
+        boolean flag = false;
+        
+        conMan = new ConnectionManager();
+        conn = conMan.connect();
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                akun = new Akun();
+                akun.setId(rs.getInt("id_akun"));
+                akun.setUsername(rs.getString("username"));;
+                flag = true;
+            }
+            conMan.disconnect();
+        } catch (SQLException ex) {
+            System.out.println("Salah Query!");
+        }
+        return flag;
+    }
+    
+    
 }

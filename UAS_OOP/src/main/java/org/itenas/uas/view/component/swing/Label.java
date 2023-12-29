@@ -9,9 +9,19 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import org.itenas.uas.view.component.Message;
+import org.itenas.uas.view.component.Message.MessageType;
 
-public class MyPasswordField extends JPasswordField {
+public class Label extends JTextField {
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
 
     public String getHint() {
         return hint;
@@ -41,21 +51,33 @@ public class MyPasswordField extends JPasswordField {
 
     private Icon prefixIcon;
     private Icon suffixIcon;
+    private boolean show = true;
+    private MessageType messageType;
     private String hint = "";
 
-    public MyPasswordField() {
+    public Label() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setBackground(new Color(0, 0, 0, 0));
-        setForeground(Color.decode("#7A8C8D"));
-        setFont(new java.awt.Font("sansserif", 0, 13));
-        setSelectionColor(new Color(75, 175, 152));
+        setBackground(new Color(0, 0, 0, 0));;
+    }
+    
+    public void showMessage(MessageType messageType, String message) {
+        this.messageType = messageType;
+        if (messageType == MessageType.SUCCESS) {
+            setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\success.png"));
+        } else {
+            setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\error.png"));
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
+        if(messageType == MessageType.SUCCESS){
+            g2.setColor(new Color(15, 174, 37));
+        } else{
+            g2.setColor(new Color(240, 52, 53));
+        }
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(new Color(247, 235, 200));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 5, 5);
         paintIcon(g);
         super.paintComponent(g);
@@ -64,13 +86,13 @@ public class MyPasswordField extends JPasswordField {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (getPassword().length == 0) {
+        if (getText().length() == 0) {
             int h = getHeight();
             ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             Insets ins = getInsets();
             FontMetrics fm = g.getFontMetrics();
-            g.setColor(new Color(200, 200, 200));
-            g.drawString(hint, ins.left, h / 2 + fm.getAscent() / 2 - 2);
+            g.setColor(new Color(242, 242, 242));
+            g.drawString(hint, ins.left, (h + fm.getAscent()) / 2 - 2);
         }
     }
 

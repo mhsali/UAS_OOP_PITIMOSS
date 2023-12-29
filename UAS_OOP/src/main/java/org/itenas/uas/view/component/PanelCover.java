@@ -36,7 +36,7 @@ public class PanelCover extends javax.swing.JPanel {
     public PanelCover() {
         initComponents();
         setOpaque(false);
-        layout = new MigLayout("wrap, fill", "[center]", "push[]25[]10[]30[]push");
+        layout = new MigLayout("wrap, fill", "[center]", "push[]25[]10[]25[]push");
         setLayout(layout);
         init();
     }
