@@ -159,7 +159,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member findById(int id) {
+    public Member findById(String id) {
         Member member = null;
         Akun akun = null;
         String sql = "SELECT * FROM member WHERE id_member="+id+"";
@@ -194,7 +194,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(String id) {
         String result = "";
         String sql = "DELETE FROM member WHERE id_member="+id+"";
         

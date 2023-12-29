@@ -116,7 +116,7 @@ private ConnectionManager conMan;
     }
 
     @Override
-    public Komik findById(int id) {
+    public Komik findById(String id) {
         Komik komik = null;
         String sql = "SELECT * FROM komik WHERE id_komik="+id+"";
         
@@ -147,7 +147,7 @@ private ConnectionManager conMan;
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(String id) {
         String result = "";
         String sql = "DELETE FROM komik WHERE id_komik="+id+"";
         

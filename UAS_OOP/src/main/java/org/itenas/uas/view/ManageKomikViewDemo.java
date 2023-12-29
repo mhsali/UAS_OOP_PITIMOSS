@@ -55,10 +55,10 @@ public class ManageKomikViewDemo {
                     }
                 break;
                 case 2:
-                    int updatedId;
+                    String updatedId;
                     Komik updatedKomik = new Komik();
                     System.out.println("Masukkan ID: ");
-                    updatedId = scanner.nextInt();
+                    updatedId = scanner.nextLine();
                     updatedKomik = findKomik(updatedId);
                     System.out.println("Data komik yang akan diupdate: ");
                     if (updatedKomik != null) {
@@ -78,13 +78,13 @@ public class ManageKomikViewDemo {
                     editKomik(updatedKomik.getId());
                 break;
                 case 3:
-                    int deletedId;
+                    String deletedId;
                     Komik deletedKomik = new Komik();
                     char confirmation;
                     komikService = new KomikServiceImpl();
                     
                     System.out.println("Masukkan ID Komik: ");
-                    deletedId = scanner.nextInt();
+                    deletedId = scanner.nextLine();
                     deletedKomik = findKomik(deletedId);
                     System.out.println("Apakah Anda yakin untuk menghapus? y/n: ");
                     confirmation = scanner.next().charAt(0);
@@ -105,10 +105,10 @@ public class ManageKomikViewDemo {
                     findAllKomik(listKomik);
                 break;
                 case 5:
-                    int searchedId;
+                    String searchedId;
                     Komik searchedKomik = new Komik();
                     System.out.println("Masukkan ID Komik: ");
-                    searchedId = scanner.nextInt();
+                    searchedId = scanner.nextLine();
                     searchedKomik = findKomik(searchedId);
                     if (searchedKomik != null) {
                         System.out.println("-----------------------------------------------------------------");
@@ -195,7 +195,7 @@ public class ManageKomikViewDemo {
         System.out.println("");
     }
 
-    private static Komik findKomik(int updatedId) {
+    private static Komik findKomik(String updatedId) {
         komik = new Komik();
         komikService = new KomikServiceImpl();
         komik = komikService.findById(updatedId);
