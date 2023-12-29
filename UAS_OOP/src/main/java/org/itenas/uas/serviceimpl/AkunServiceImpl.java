@@ -45,7 +45,7 @@ public class AkunServiceImpl implements AkunService{
             while (rs.next()) {
                 member = new Member();
                 member.setId(rs.getString("id_member"));
-                member.setNama(rs.getString("nama"));
+                member.setNama(rs.getString("nama_member"));
                 akun = new Akun();
                 akun.setId(rs.getInt("id_akun"));
                 akun.setEmail(rs.getString("email"));
@@ -62,4 +62,89 @@ public class AkunServiceImpl implements AkunService{
         }
         return member;
     }
+
+    @Override
+    public Integer register(Member object) {
+        int result = 0;
+
+        try {
+            
+            conMan = new ConnectionManager();
+            conn = conMan.connect();
+        
+            String sql = "INSERT INTO akun (email, username, password, role) "
+                    + "VALUES ('" + object.getAkun().getEmail() + "', "
+                    + "'" + object.getAkun().getUsername() + "', "
+                    + "'" + object.getAkun().getPassword() + "', "
+                    + "'Member');";
+
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AkunServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        } finally {
+            conMan.disconnect();
+        }
+
+        return result;
+    }
+
+
+    @Override
+    public boolean cekData(String id) {
+        Member member = null;
+        String sql = "SELECT id_member, nama_member FROM member "
+                + "WHERE id_member = '" +id+ "';";
+        boolean flag = false;
+        
+        conMan = new ConnectionManager();
+        conn = conMan.connect();
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                member = new Member();
+                member.setId(rs.getString("id_member"));
+                member.setNama(rs.getString("nama_member"));;
+                flag = true;
+            }
+            conMan.disconnect();
+        } catch (SQLException ex) {
+            System.out.println("Salah Query!");
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean cekUsername(String username) {
+        Akun akun = null;
+        String sql = "SELECT id_akun, username FROM akun "
+                + "WHERE username = '" +username+ "';";
+        boolean flag = false;
+        
+        conMan = new ConnectionManager();
+        conn = conMan.connect();
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                akun = new Akun();
+                akun.setId(rs.getInt("id_akun"));
+                akun.setUsername(rs.getString("username"));;
+                flag = true;
+            }
+            conMan.disconnect();
+        } catch (SQLException ex) {
+            System.out.println("Salah Query!");
+        }
+        return flag;
+    }
+    
+    
 }
