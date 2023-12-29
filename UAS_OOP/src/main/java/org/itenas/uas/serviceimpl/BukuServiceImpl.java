@@ -45,7 +45,7 @@ public class BukuServiceImpl implements BukuService{
                 buku.setPengarang(rs.getString("pengarang"));
                 buku.setPenerbit(rs.getString("penerbit"));
                 buku.setTahunTerbit(rs.getString("tahun_terbit"));
-                buku.setHarga(rs.getDouble("harga"));
+                buku.setHarga(rs.getDouble("harga_buku"));
                 buku.setStatus(rs.getString("status"));
                 
                 listBuku.add(buku);
@@ -61,22 +61,115 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String create(Buku object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        conMan = new ConnectionManager();
+    conn = conMan.connect();
+    String result = "GAGAL untuk menambah buku!!...";
+
+    try {
+        String sql = "INSERT INTO buku (ID_Buku, judul_buku, pengarang, penerbit, tahun_terbit, harga_buku, status) VALUES ('"
+                + object.getId() + "', '"
+                + object.getJudul() + "', '" 
+                + object.getPengarang() + "', '" 
+                + object.getPenerbit() + "', '"
+                + object.getTahunTerbit() + "', " 
+                + object.getHarga() + ", '" 
+                + object.getStatus() + "')";
+
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Buku Terbuat!!...";
+        }
+        conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return result;
+}
 
     @Override
     public String update(Buku object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         conMan = new ConnectionManager();
+    conn = conMan.connect();
+    String result = "Gagal Update Buku";
+
+    try {
+        String sql = "UPDATE buku SET ID_buku='" + object.getId() +"', "
+            + "judul_buku='" + object.getJudul() 
+            + "', pengarang='" + object.getPengarang()
+            + "', penerbit='" + object.getPenerbit() 
+            + "', tahun_terbit='" + object.getTahunTerbit() 
+            + "', harga_buku=" + object.getHarga() 
+            + ", status='" + object.getStatus() 
+            + "' WHERE id_buku='" + object.getId() + "'; ";
+
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Buku Berhasil Di Update";
+        }
+        conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    return result;
+}
     @Override
-    public Buku findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Buku findById(String id) {
+     conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Buku buku = null;
+
+    try {
+        String sql = "SELECT * FROM buku WHERE id_buku='" + id + "'";
+
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
+
+        if (rs.next()) {
+            buku = new Buku();
+            buku.setId(rs.getString("id_buku"));
+            buku.setJudul(rs.getString("judul_buku"));
+            buku.setPengarang(rs.getString("pengarang"));
+            buku.setPenerbit(rs.getString("penerbit"));
+            buku.setTahunTerbit(rs.getString("tahun_terbit"));
+            buku.setHarga(rs.getDouble("harga_buku"));
+            buku.setStatus(rs.getString("status"));
+        }
+        conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    return buku;
+}
+
     @Override
-    public String delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String delete(String id) {
+         conMan = new ConnectionManager();
+    conn = conMan.connect();
+    String result = "Failed to delete book";
+
+    try {
+        String sql = "DELETE FROM buku WHERE id_buku='" + id + "'";
+
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Book deleted successfully";
+        }
+        conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return result;
+}
+
     
 }
