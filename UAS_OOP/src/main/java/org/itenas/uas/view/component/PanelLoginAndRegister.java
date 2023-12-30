@@ -6,24 +6,31 @@ package org.itenas.uas.view.component;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.Timer;
 import net.miginfocom.swing.MigLayout;
 import org.itenas.uas.pojo.Admin;
 import org.itenas.uas.pojo.Akun;
 import org.itenas.uas.pojo.Member;
 import org.itenas.uas.service.AkunService;
+import org.itenas.uas.service.LoginService;
 import org.itenas.uas.serviceimpl.AkunServiceImpl;
+import org.itenas.uas.serviceimpl.LoginServiceImpl;
 import org.itenas.uas.view.component.swing.Button;
 import org.itenas.uas.view.component.swing.Label;
 import org.itenas.uas.view.component.swing.MyPasswordField;
 import org.itenas.uas.view.component.swing.MyTextField;
+import org.itenas.uas.view.component.swing.ShowPasswordCheckBox;
 
 /**
  *
@@ -48,6 +55,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     private Admin admin;
     private String id;
     private AkunService akunService;
+    private LoginService loginService;
     private Message.MessageType messageType;
     private Label txtLabel;
     private JLabel hiddenLabel;
@@ -93,14 +101,21 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtUser.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\user.png"));
         txtUser.setHint("Username");
         register.add(txtUser, "w 60%");
+        
         MyTextField txtEmail = new MyTextField();
         txtEmail.setPrefixIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\mail.png"));
         txtEmail.setHint("Email");
         register.add(txtEmail, "w 60%");
+        
         MyPasswordField txtPass = new MyPasswordField();
         txtPass.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\pass.png"));
         txtPass.setHint("Password");
         register.add(txtPass, "w 60%");
+        
+        ShowPasswordCheckBox registerPassShow = new ShowPasswordCheckBox();
+        register.add(registerPassShow, "pos 475 342 n n");
+        showPassword(registerPassShow, txtPass);
+        
         Button cmd = new Button();
         cmd.setBackground(new Color(245, 172, 44));
         cmd.setForeground(new Color(255, 255, 255));
@@ -132,14 +147,21 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(245, 172, 44));
         login.add(label);
+        
         MyTextField txtEmail = new MyTextField();
-        txtEmail.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\mail.png"));
-        txtEmail.setHint("Email");
-        login.add(txtEmail, "w 60%");
+        txtEmail.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\user.png"));
+        txtEmail.setHint("Username");
+        login.add(txtEmail, "w 55%");
+        
         MyPasswordField txtPass = new MyPasswordField();
         txtPass.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\pass.png"));
         txtPass.setHint("Password");
-        login.add(txtPass, "w 60%");
+        login.add(txtPass, "w 55%");;
+
+        ShowPasswordCheckBox loginPassShow = new ShowPasswordCheckBox();
+        login.add(loginPassShow, "pos 470 272 n n");
+        showPassword(loginPassShow, txtPass);
+        
         Button cmd = new Button();
         cmd.setBackground(new Color(245, 172, 44));
         cmd.setForeground(new Color(255, 255, 255));
@@ -155,7 +177,11 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                 akun.setUsername(username);
                 akun.setPassword(password);
                 
-                showMessage(Message.MessageType.ERROR, "Error Login", "login");
+                if(!username.isEmpty() && !password.isEmpty()){
+                    login(username, password);
+                } else{
+                    showMessage(Message.MessageType.ERROR, "Semua Kolom Harus diisi!", "login");
+                }
             }
             
         });
@@ -184,6 +210,29 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         else if(id.startsWith("A")){
             admin = new Admin();
             admin.setId(id);
+        }
+    }
+    
+    private void login(String username, String Password){
+        String result;
+        loginService = new LoginServiceImpl();
+        result = loginService.pilihData(username, Password);
+        
+        if(result.equals("Member")){
+            member = new Member();
+            akunService = new AkunServiceImpl();
+            member = akunService.login(username, Password);
+            
+            if(member != null){
+                showMessage(Message.MessageType.SUCCESS, "Login Berhasil!", "login");
+            } else{
+                showMessage(Message.MessageType.ERROR, "Login Gagal", "login");
+            }
+        }
+        else if(result.equals("Admin")){
+            
+        } else{
+            showMessage(Message.MessageType.ERROR, "Login Gagal", "login");
         }
     }
     
@@ -246,6 +295,19 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         repaint();
     }
 
+    public void showPassword(JCheckBox show, JPasswordField pass){
+        show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (show.isSelected()) {
+                    pass.setEchoChar((char)0);
+                } else {
+                    pass.setEchoChar('*');
+                }
+            }
+        });
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

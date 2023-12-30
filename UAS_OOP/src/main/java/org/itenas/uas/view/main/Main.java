@@ -14,7 +14,6 @@ import net.miginfocom.swing.MigLayout;
 import org.itenas.uas.pojo.Member;
 import org.itenas.uas.service.AkunService;
 import org.itenas.uas.serviceimpl.AkunServiceImpl;
-import org.itenas.uas.view.component.Message;
 import org.itenas.uas.view.component.PanelLoginAndRegister;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;

@@ -91,9 +91,9 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String update(Buku object) {
-         conMan = new ConnectionManager();
+    conMan = new ConnectionManager();
     conn = conMan.connect();
-    String result = "Gagal Update Buku";
+    String result = "";
 
     try {
         String sql = "UPDATE buku SET ID_buku='" + object.getId() +"', "

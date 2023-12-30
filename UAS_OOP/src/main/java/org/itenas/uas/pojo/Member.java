@@ -14,9 +14,18 @@ public class Member {
     private String alamat;
     private String email;
     private String nomorTelp;
+    private boolean loginStatus;
     private Akun akun;
 
     public Member() {
+    }
+
+    public boolean isLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
     }
 
     public String getId() {
