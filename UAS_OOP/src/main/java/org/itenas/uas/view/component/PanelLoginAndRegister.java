@@ -22,8 +22,10 @@ import net.miginfocom.swing.MigLayout;
 import org.itenas.uas.pojo.Admin;
 import org.itenas.uas.pojo.Akun;
 import org.itenas.uas.pojo.Member;
+import org.itenas.uas.service.AdminService;
 import org.itenas.uas.service.AkunService;
 import org.itenas.uas.service.LoginService;
+import org.itenas.uas.serviceimpl.AdminServiceImpl;
 import org.itenas.uas.serviceimpl.AkunServiceImpl;
 import org.itenas.uas.serviceimpl.LoginServiceImpl;
 import org.itenas.uas.view.component.swing.Button;
@@ -55,6 +57,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     private Admin admin;
     private String id;
     private AkunService akunService;
+    private AdminService adminService;
     private LoginService loginService;
     private Message.MessageType messageType;
     private Label txtLabel;
@@ -210,6 +213,20 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         else if(id.startsWith("A")){
             admin = new Admin();
             admin.setId(id);
+            
+            adminService = new AdminServiceImpl();
+            if(!adminService.cekUsername(akun.getUsername())){
+                if(!akun.getUsername().isEmpty() && 
+                      !akun.getEmail().isEmpty() && !akun.getPassword().isEmpty()){
+                    adminService.register(admin);
+                    showMessage(Message.MessageType.SUCCESS, "Register Berhasil", "register");
+                } else{
+                    hiddenLabel.setVisible(true);
+                    hiddenLabel.setText("Semua kolom harus diisi!");
+                }
+            } else{
+                showMessage(Message.MessageType.ERROR, "Error Register", "register");
+            }
         }
     }
     
@@ -230,7 +247,15 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
             }
         }
         else if(result.equals("Admin")){
+            admin = new Admin();
+            adminService = new AdminServiceImpl();
+            admin = adminService.login(username, Password);
             
+            if(admin != null){
+                showMessage(Message.MessageType.SUCCESS, "Login Berhasil!", "login");
+            } else{
+                showMessage(Message.MessageType.ERROR, "Login Gagal", "login");
+            }
         } else{
             showMessage(Message.MessageType.ERROR, "Login Gagal", "login");
         }
