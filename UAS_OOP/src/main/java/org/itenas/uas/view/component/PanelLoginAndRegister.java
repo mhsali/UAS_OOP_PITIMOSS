@@ -136,7 +136,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                 akun.setUsername(userName);
                 akun.setPassword(password);
                 
-                if(id != null && akun != null){
+                if(id != null && !userName.isEmpty() && !email.isEmpty() && !password.isEmpty()){
                     register(id);
                 } else{
                     showMessage(Message.MessageType.ERROR, "Semua Kolom Harus diisi!", "register");
