@@ -21,6 +21,10 @@ public class ManageKomikViewDemo {
     static KomikService komikService;
     static Scanner scanner;
     
+    public static void main(String[] args) {
+        viewManageDokter();
+    }
+    
     public static void viewManageDokter() {
         int menu = 0;
         boolean keluar = false;
@@ -57,6 +61,7 @@ public class ManageKomikViewDemo {
                 case 2:
                     String updatedId;
                     Komik updatedKomik = new Komik();
+                    scanner.nextLine();
                     System.out.println("Masukkan ID: ");
                     updatedId = scanner.nextLine();
                     updatedKomik = findKomik(updatedId);
@@ -75,13 +80,14 @@ public class ManageKomikViewDemo {
                     }
                     System.out.println("");
                     System.out.println("Masukkan data baru: ");
-                    editKomik(updatedKomik.getId());
+                    editKomik(updatedId);
                 break;
                 case 3:
                     String deletedId;
                     Komik deletedKomik = new Komik();
                     char confirmation;
                     komikService = new KomikServiceImpl();
+                    scanner.nextLine();
                     
                     System.out.println("Masukkan ID Komik: ");
                     deletedId = scanner.nextLine();
@@ -107,6 +113,7 @@ public class ManageKomikViewDemo {
                 case 5:
                     String searchedId;
                     Komik searchedKomik = new Komik();
+                    scanner.nextLine();
                     System.out.println("Masukkan ID Komik: ");
                     searchedId = scanner.nextLine();
                     searchedKomik = findKomik(searchedId);
