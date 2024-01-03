@@ -1,10 +1,11 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.itenas.uas.serviceimpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -91,10 +92,25 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String update(Buku object) {
-         conMan = new ConnectionManager();
-    conn = conMan.connect();
-    String result = "Gagal Update Buku";
+     ConnectionManager conMan = new ConnectionManager();
+    Connection conn = conMan.connect();
+    String result = "";
+    int rowsAffected = 0;
 
+    try {
+        String sql = "UPDATE buku SET ID_buku = ?, judul_buku = ?, Pengarang = ?, Penerbit = ?, tahun_terbit = ?, harga_buku = ?, status = ? WHERE id_buku = ?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, object.getId());
+            statement.setString(2, object.getJudul());
+            statement.setString(3, object.getPengarang());
+            statement.setString(4, object.getPenerbit());
+            statement.setString(5, object.getTahunTerbit());
+            statement.setDouble(6, object.getHarga());
+            statement.setString(7, object.getStatus());
+            statement.setString(8, object.getId());  // set the value for the WHERE clause
+            rowsAffected = statement.executeUpdate();
+        } 
+            /*
     try {
         String sql = "UPDATE buku SET ID_buku='" + object.getId() +"', "
             + "judul_buku='" + object.getJudul() 
@@ -103,11 +119,8 @@ public class BukuServiceImpl implements BukuService{
             + "', tahun_terbit='" + object.getTahunTerbit() 
             + "', harga_buku=" + object.getHarga() 
             + ", status='" + object.getStatus() 
-            + "' WHERE id_buku='" + object.getId() + "'; ";
-
-        stmt = conn.createStatement();
-        int rowsAffected = stmt.executeUpdate(sql);
-
+            + "' WHERE id_buku='" + object.getId() + "'; "; */
+       
         if (rowsAffected > 0) {
             result = "Buku Berhasil Di Update";
         }
