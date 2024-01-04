@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package org.itenas.uas.view.component;
 
 import java.awt.AlphaComposite;
@@ -36,7 +40,7 @@ public class Message extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         lbMessage = new javax.swing.JLabel();
@@ -59,7 +63,7 @@ public class Message extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     @Override
     protected void paintComponent(Graphics grphcs) {
@@ -81,7 +85,7 @@ public class Message extends javax.swing.JPanel {
         SUCCESS, ERROR
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel lbMessage;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

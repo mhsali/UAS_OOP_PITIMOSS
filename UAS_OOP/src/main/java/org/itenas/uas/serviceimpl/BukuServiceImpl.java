@@ -29,7 +29,7 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public List<Buku> findAll() {
-        List<Buku> listBuku = new ArrayList<>();
+        List<Buku> listBuku = new ArrayList<Buku>();
         String sql = "SELECT * FROM buku";
         
         conMan = new ConnectionManager();
@@ -92,10 +92,12 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String update(Buku object) {
-     ConnectionManager conMan = new ConnectionManager();
+
+    ConnectionManager conMan = new ConnectionManager();
     Connection conn = conMan.connect();
     String result = "";
     int rowsAffected = 0;
+
 
     try {
         String sql = "UPDATE buku SET ID_buku = ?, judul_buku = ?, Pengarang = ?, Penerbit = ?, tahun_terbit = ?, harga_buku = ?, status = ? WHERE id_buku = ?";

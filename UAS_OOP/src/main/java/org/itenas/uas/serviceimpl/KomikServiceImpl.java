@@ -63,16 +63,15 @@ private ConnectionManager conMan;
     @Override
     public String create(Komik object) {
         String result = "";
-        String sql = "INSERT INTO komik(id_komik,judul_komik, pengarang, penerbit, tahun_terbit, "
-                + "harga_komik, status, volume) "
-                + "VALUES('"+object.getId()+"', "
-                + ""+object.getJudul()+", "
-                + "'"+object.getPengarang()+"', "
-                + "'"+object.getPenerbit()+"', "
-                + "'"+object.getTahunTerbit()+"', "
-                + "'"+object.getHarga()+"' "
-                + "'"+object.getStatus()+"' "
-                + "'"+object.getVolume()+"')";
+        String sql = "INSERT INTO komik (ID_Komik, judul_komik, pengarang, penerbit, tahun_terbit, harga_komik, status, volume) VALUES ('"
+                + object.getId() + "', '"
+                + object.getJudul() + "', '" 
+                + object.getPengarang() + "', '" 
+                + object.getPenerbit() + "', '"
+                + object.getTahunTerbit() + "', " 
+                + object.getHarga() + ", '"
+                + object.getStatus()+ "', '"
+                + object.getVolume()+ "')";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
@@ -91,15 +90,15 @@ private ConnectionManager conMan;
     @Override
     public String update(Komik object) {
         String result = "";
-        String sql = "UPDATE komik SET id_komik='"+object.getId()+"', "
-                + "judul_komik="+object.getJudul()+", "
-                + "pengarang='"+object.getPengarang()+"', "
-                + "penerbit='"+object.getPenerbit()+"', "
-                + "tahun_terbit='"+object.getTahunTerbit()+"', "
-                + "harga_komik='"+object.getHarga()+"' "
-                + "status='"+object.getStatus()+"' "
-                + "volume='"+object.getVolume()+"' "
-                + "WHERE id_komik="+object.getId()+"";
+        String sql = "UPDATE komik SET id_komik = '"+object.getId()+"', "
+                + "judul_komik = '"+object.getJudul()+"', "
+                + "pengarang = '"+object.getPengarang()+"', "
+                + "penerbit = '"+object.getPenerbit()+"', "
+                + "tahun_terbit = '"+object.getTahunTerbit()+"', "
+                + "harga_komik = "+object.getHarga() + ", "
+                + "status = '"+object.getStatus()+"', "
+                + "volume = '"+object.getVolume()+"' "
+                + "WHERE id_komik = '"+object.getId()+"';";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
@@ -118,7 +117,7 @@ private ConnectionManager conMan;
     @Override
     public Komik findById(String id) {
         Komik komik = null;
-        String sql = "SELECT * FROM komik WHERE id_komik="+id+"";
+        String sql = "SELECT * FROM komik WHERE id_komik = '"+id+"';";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
@@ -149,7 +148,7 @@ private ConnectionManager conMan;
     @Override
     public String delete(String id) {
         String result = "";
-        String sql = "DELETE FROM komik WHERE id_komik="+id+"";
+        String sql = "DELETE FROM komik WHERE id_komik = '"+id+"'";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
