@@ -85,12 +85,12 @@ public class MemberServiceImpl implements MemberService{
                 member.setAlamat(rs.getString("alamat"));
                 member.setEmail(rs.getString("email"));
                 member.setNomorTelp(rs.getString("nomor_telepon"));
-                Akun akun = new Akun();
+                /*Akun akun = new Akun();
                 akun.setId(rs.getInt("id_akun"));
                 akun.setEmail(rs.getString("email"));
                 akun.setUsername(rs.getString("username"));
                 akun.setRole(rs.getString("role"));
-                member.setAkun(akun);
+                member.setAkun(akun);*/
                 
                 listMember.add(member);
             }
