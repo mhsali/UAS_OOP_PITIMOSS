@@ -37,12 +37,7 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE170</version>
-=======
-            <groupId>unknown.binary</groupId>
+        <groupId>unknown.binary</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
@@ -50,7 +45,6 @@
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
->>>>>>> master
         </dependency>
     </dependencies>
 </project>
