@@ -84,7 +84,6 @@ public class CrudMember extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(32767, 32767));
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Background.setBackground(new java.awt.Color(255, 255, 255));
         Background.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -146,19 +145,14 @@ public class CrudMember extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbl_member);
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("ID_Member");
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nama_Member");
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Alamat");
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Email");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nomor_Telepon");
 
         javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
@@ -184,7 +178,7 @@ public class CrudMember extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +207,16 @@ public class CrudMember extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 560));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
