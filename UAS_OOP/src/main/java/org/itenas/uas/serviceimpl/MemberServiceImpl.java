@@ -210,6 +210,11 @@ public class MemberServiceImpl implements MemberService{
                     .log(Level.SEVERE, null, ex);
         }
         return result;
+    }    
+
+    @Override
+    public List<Member> findBacaanByJudul(String judul) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 }
+

@@ -106,29 +106,20 @@ public class ManageBukuViewDemo {
                     findAllBuku(listBuku);
                 break;
                 case 5:
-                    String searchedId;
+                    bukuService = new BukuServiceImpl();
+                    String searchedJudul;
                     Buku searchedBuku = new Buku();
                     scanner.nextLine();
-                    System.out.println("Masukkan ID Buku: ");
-                    searchedId = scanner.nextLine();
-                    searchedBuku = findBuku(searchedId);
-                    if (searchedBuku != null) {
-                        System.out.println("-----------------------------------------------------------------");
-                        System.out.println("ID Buku\t: " + searchedBuku.getId());
-                        System.out.println("Judul Buku\t: " + searchedBuku.getJudul());
-                        System.out.println("Pengarang\t: " + searchedBuku.getPengarang());
-                        System.out.println("Penerbit\t: " + searchedBuku.getPenerbit());
-                        System.out.println("Tahun Terbit\t: " + searchedBuku.getTahunTerbit());
-                        System.out.println("Harga Buku\t: " + searchedBuku.getHarga());
-                        System.out.println("Status\t\t: " + searchedBuku.getStatus());
-                        System.out.println("-----------------------------------------------------------------");
-                    } else {
-                        System.out.println("Data tidak ditemukan!");
-                    }
-                break;
-                default:
-                    System.out.println("Pilihan yang Anda masukkan salah!");
-                break;
+                    System.out.println("Masukkan Judul Buku: ");
+                    searchedJudul = scanner.nextLine();
+                    listBuku = bukuService.findBacaanByJudul(searchedJudul);
+
+                    if (!listBuku.isEmpty()) {
+                    findAllBuku(listBuku);
+    } else {
+        System.out.println("Data tidak ditemukan!");
+    }
+    break;
             }
             System.out.println("");
             System.out.println("Apakah ingin melanjutkan? y/n: ");

@@ -5,6 +5,7 @@
 package org.itenas.uas.serviceimpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -171,5 +172,133 @@ public class BukuServiceImpl implements BukuService{
     return result;
 }
 
+    @Override
+    public List<Buku> findBacaanByPengarang(String pengarang) {
+        List<Buku> listBuku = new ArrayList<>();
+        String sql = "SELECT * FROM buku WHERE pengarang LIKE '%" + pengarang + "%'";
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
     
-}
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            Buku buku = new Buku();
+            buku.setId(rs.getString("id_buku"));
+            buku.setJudul(rs.getString("judul_buku"));
+            buku.setPengarang(rs.getString("pengarang"));
+            buku.setPenerbit(rs.getString("penerbit"));
+            buku.setTahunTerbit(rs.getString("tahun_terbit"));
+            buku.setHarga(rs.getDouble("harga_buku"));
+            buku.setStatus(rs.getString("status"));
+
+            listBuku.add(buku);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listBuku;    
+    }    
+
+    @Override
+  public List<Buku> findBacaanByPenerbit(String penerbit) {
+   List<Buku> listBuku = new ArrayList<>();
+   String sql = "SELECT * FROM buku WHERE penerbit LIKE '%" + penerbit + "%'";
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
+    
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            Buku buku = new Buku();
+            buku.setId(rs.getString("id_buku"));
+            buku.setJudul(rs.getString("judul_buku"));
+            buku.setPengarang(rs.getString("pengarang"));
+            buku.setPenerbit(rs.getString("penerbit"));
+            buku.setTahunTerbit(rs.getString("tahun_terbit"));
+            buku.setHarga(rs.getDouble("harga_buku"));
+            buku.setStatus(rs.getString("status"));
+
+            listBuku.add(buku);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listBuku;   
+  }
+
+
+    @Override
+    public List<Buku> findBacaanByJudul(String judul) {
+       List<Buku> listBuku = new ArrayList<>();
+        String sql = "SELECT * FROM buku WHERE judul_buku LIKE '%" + judul + "%'";
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
+    
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            Buku buku = new Buku();
+            buku.setId(rs.getString("id_buku"));
+            buku.setJudul(rs.getString("judul_buku"));
+            buku.setPengarang(rs.getString("pengarang"));
+            buku.setPenerbit(rs.getString("penerbit"));
+            buku.setTahunTerbit(rs.getString("tahun_terbit"));
+            buku.setHarga(rs.getDouble("harga_buku"));
+            buku.setStatus(rs.getString("status"));
+
+            listBuku.add(buku);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listBuku;    
+        }
+   }
