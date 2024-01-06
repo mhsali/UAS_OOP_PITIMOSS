@@ -75,5 +75,9 @@ public class Member {
     public void setAkun(Akun akun) {
         this.akun = akun;
     }
+
+    public void setName(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

@@ -84,5 +84,9 @@ public class Komik {
     public void setVolume(String volume) {
         this.volume = volume;
     }
+
+    public void setSomething(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
