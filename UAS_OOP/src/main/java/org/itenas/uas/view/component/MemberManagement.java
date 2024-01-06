@@ -18,11 +18,6 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import org.itenas.uas.view.component.swing.Button;
-import org.itenas.uas.view.component.swing.Label;
-import org.itenas.uas.view.component.swing.MyPasswordField;
-import org.itenas.uas.view.component.swing.MyTextField;
-import org.itenas.uas.view.component.swing.ShowPasswordCheckBox;
 
 /**
  *

@@ -18,11 +18,6 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import org.itenas.uas.view.component.swing.Button;
-import org.itenas.uas.view.component.swing.Label;
-import org.itenas.uas.view.component.swing.MyPasswordField;
-import org.itenas.uas.view.component.swing.MyTextField;
-import org.itenas.uas.view.component.swing.ShowPasswordCheckBox;
 
 
 /**
@@ -668,7 +663,7 @@ public class BukuManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void admin_dashboard_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_dashboard_itemActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_admin_dashboard_itemActionPerformed
 
     private void komik_management_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_komik_management_itemActionPerformed
