@@ -11,14 +11,8 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -35,7 +29,7 @@ import org.itenas.uas.view.component.swing.ShowPasswordCheckBox;
  *
  * @author BillHafidz
  */
-public class PanelBuku extends javax.swing.JFrame {
+public class BukuManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form Tes
@@ -43,7 +37,7 @@ public class PanelBuku extends javax.swing.JFrame {
     
     BukuService bukuService;
     
-    public PanelBuku() {
+    public BukuManagement() {
         initComponents();
         this.setLocationRelativeTo(null);
         loadData();
@@ -132,10 +126,10 @@ public class PanelBuku extends javax.swing.JFrame {
         btn_refresh = new javax.swing.JButton();
         txt_search_id = new javax.swing.JTextField();
         btn_search = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabel_buku = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabel_buku = new org.itenas.uas.view.component.swing.TableDark();
         txt_id_buku = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -159,10 +153,13 @@ public class PanelBuku extends javax.swing.JFrame {
         btn_clear = new org.itenas.uas.view.component.swing.Button();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        mainMenu = new javax.swing.JMenuItem();
+        admin_dashboard_item = new javax.swing.JMenuItem();
         komik_management_item = new javax.swing.JMenuItem();
+        member_management_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1120, 800));
+        setPreferredSize(new java.awt.Dimension(1110, 760));
 
         jPanel1.setBackground(new java.awt.Color(245, 172, 44));
 
@@ -216,37 +213,6 @@ public class PanelBuku extends javax.swing.JFrame {
             }
         });
 
-        tabel_buku.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tabel_buku.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nomor", "ID Buku", "Judul", "Pengarang", "Penerbit", "Tahun Terbit", "Harga", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tabel_buku.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabel_buku.setGridColor(new java.awt.Color(245, 172, 44));
-        tabel_buku.setSelectionBackground(new java.awt.Color(245, 172, 44));
-        tabel_buku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabel_bukuMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tabel_buku);
-        tabel_buku.getAccessibleContext().setAccessibleDescription("");
-
         jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("BUKU MANAGEMENT");
@@ -257,33 +223,51 @@ public class PanelBuku extends javax.swing.JFrame {
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 100));
 
+        tabel_buku.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Buku", "Judul Buku", "Pengarang", "Penerbit", "Tahun Terbit", "Harga", "Status"
+            }
+        ));
+        tabel_buku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_bukuMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabel_buku);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(txt_search_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_search)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_refresh)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txt_search_id)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_search)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_refresh))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel2)))
+                                .addGap(123, 123, 123))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_print, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(201, 201, 201))))
+                        .addGap(238, 238, 238))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,10 +282,10 @@ public class PanelBuku extends javax.swing.JFrame {
                     .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_refresh))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(btn_print, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(37, 37, 37))
         );
 
         txt_id_buku.setBackground(new java.awt.Color(245, 172, 45));
@@ -318,7 +302,7 @@ public class PanelBuku extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Judul");
+        jLabel3.setText("Judul BUku");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -449,33 +433,34 @@ public class PanelBuku extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 39, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 71, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_id_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(jLabel8)
-                            .addComponent(txt_pengarang, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
-                            .addComponent(txt_judul, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(txt_pengarang)
+                            .addComponent(txt_judul)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_penerbit, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(txt_penerbit)
                             .addComponent(jLabel7)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(radio_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_tahunTerbit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addComponent(txt_tahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
                         .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -483,8 +468,7 @@ public class PanelBuku extends javax.swing.JFrame {
                         .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)))
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -493,10 +477,12 @@ public class PanelBuku extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel5))
+                        .addGap(580, 580, 580))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_id_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -525,15 +511,15 @@ public class PanelBuku extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(radio_tersedia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(23, 23, 23)
+                            .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenuBar1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -542,13 +528,13 @@ public class PanelBuku extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
-        mainMenu.setText("Admin Dashboard");
-        mainMenu.addActionListener(new java.awt.event.ActionListener() {
+        admin_dashboard_item.setText("Admin Dashboard");
+        admin_dashboard_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mainMenuActionPerformed(evt);
+                admin_dashboard_itemActionPerformed(evt);
             }
         });
-        jMenu1.add(mainMenu);
+        jMenu1.add(admin_dashboard_item);
 
         komik_management_item.setText("Komik Management");
         komik_management_item.addActionListener(new java.awt.event.ActionListener() {
@@ -557,6 +543,14 @@ public class PanelBuku extends javax.swing.JFrame {
             }
         });
         jMenu1.add(komik_management_item);
+
+        member_management_item.setText("Member Management");
+        member_management_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                member_management_itemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(member_management_item);
 
         jMenuBar1.add(jMenu1);
 
@@ -673,14 +667,14 @@ public class PanelBuku extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
-    private void mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuActionPerformed
+    private void admin_dashboard_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_dashboard_itemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mainMenuActionPerformed
+    }//GEN-LAST:event_admin_dashboard_itemActionPerformed
 
     private void komik_management_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_komik_management_itemActionPerformed
-        PanelKomik komikManagement = new PanelKomik();
+        KomikManagement komikManagement = new KomikManagement();
         komikManagement.setVisible(true);
-        close();
+        this.dispose();
     }//GEN-LAST:event_komik_management_itemActionPerformed
 
     private void txt_id_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_bukuActionPerformed
@@ -695,34 +689,6 @@ public class PanelBuku extends javax.swing.JFrame {
         emptyField();
     }//GEN-LAST:event_btn_clearActionPerformed
 
-    private void tabel_bukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_bukuMouseClicked
-        String id_buku, judul, pengarang, penerbit, tahunTerbit, status;
-        double harga;
-
-        int row = tabel_buku.getSelectedRow();
-        id_buku = tabel_buku.getValueAt(row, 0).toString();
-        judul = tabel_buku.getValueAt(row, 1).toString();
-        pengarang = tabel_buku.getValueAt(row, 2).toString();
-        penerbit = tabel_buku.getValueAt(row, 3).toString();
-        tahunTerbit = tabel_buku.getValueAt(row, 4).toString();
-        harga = Double.parseDouble(tabel_buku.getValueAt(row, 5).toString());
-        status = tabel_buku.getValueAt(row, 6).toString();
-
-        txt_id_buku.setText(id_buku);
-        txt_judul.setText(judul);
-        txt_pengarang.setText(pengarang);
-        txt_penerbit.setText(penerbit);
-        txt_tahunTerbit.setText(tahunTerbit);
-
-        txt_harga.setText(harga+"");
-        if (status.equals("Tersedia")) {
-            radio_tersedia.setSelected(true);
-        }
-        if (status.equals("Tidak Tersedia")) {
-            radio_tidak_tersedia.setSelected(true);
-        }
-    }//GEN-LAST:event_tabel_bukuMouseClicked
-
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         String id_buku;
         Buku searchedBuku = new Buku();
@@ -732,7 +698,7 @@ public class PanelBuku extends javax.swing.JFrame {
         if (searchedBuku != null) {
             loadData(searchedBuku);
         } else {
-            JOptionPane.showMessageDialog(null, "Data tidak ditemukan!");
+            JOptionPane.showMessageDialog(null, "Data dengan id '" + id_buku + "'tidak ditemukan!");
         }
     }//GEN-LAST:event_btn_searchActionPerformed
 
@@ -764,7 +730,7 @@ public class PanelBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void btn_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printActionPerformed
-        MessageFormat header = new MessageFormat("List Buku Reporting");
+        MessageFormat header = new MessageFormat("Laporan List Buku");
         MessageFormat footer = new MessageFormat("Page {0, number, integer}");
         try {
             tabel_buku.print(JTable.PrintMode.FIT_WIDTH, header, footer);
@@ -772,6 +738,40 @@ public class PanelBuku extends javax.swing.JFrame {
             System.out.println("Error: " + e);
         }
     }//GEN-LAST:event_btn_printActionPerformed
+
+    private void tabel_bukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_bukuMouseClicked
+        String id_buku, judul, pengarang, penerbit, tahunTerbit, status;
+        double harga;
+
+        int row = tabel_buku.getSelectedRow();
+        id_buku = tabel_buku.getValueAt(row, 0).toString();
+        judul = tabel_buku.getValueAt(row, 1).toString();
+        pengarang = tabel_buku.getValueAt(row, 2).toString();
+        penerbit = tabel_buku.getValueAt(row, 3).toString();
+        tahunTerbit = tabel_buku.getValueAt(row, 4).toString();
+        harga = Double.parseDouble(tabel_buku.getValueAt(row, 5).toString());
+        status = tabel_buku.getValueAt(row, 6).toString();
+
+        txt_id_buku.setText(id_buku);
+        txt_judul.setText(judul);
+        txt_pengarang.setText(pengarang);
+        txt_penerbit.setText(penerbit);
+        txt_tahunTerbit.setText(tahunTerbit);
+        txt_harga.setText(harga+"");
+        
+        if (status.equals("Tersedia")) {
+            radio_tersedia.setSelected(true);
+        }
+        if (status.equals("Tidak Tersedia")) {
+            radio_tidak_tersedia.setSelected(true);
+        }
+    }//GEN-LAST:event_tabel_bukuMouseClicked
+
+    private void member_management_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_member_management_itemActionPerformed
+        MemberManagement memberManagement = new MemberManagement();
+        memberManagement.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_member_management_itemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -790,26 +790,33 @@ public class PanelBuku extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PanelBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BukuManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PanelBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BukuManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PanelBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BukuManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PanelBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BukuManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PanelBuku().setVisible(true);
+                new BukuManagement().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem admin_dashboard_item;
     private org.itenas.uas.view.component.swing.Button btn_add;
     private org.itenas.uas.view.component.swing.Button btn_clear;
     private org.itenas.uas.view.component.swing.Button btn_delete;
@@ -833,12 +840,12 @@ public class PanelBuku extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem komik_management_item;
-    private javax.swing.JMenuItem mainMenu;
+    private javax.swing.JMenuItem member_management_item;
     private javax.swing.JRadioButton radio_tersedia;
     private javax.swing.JRadioButton radio_tidak_tersedia;
-    private javax.swing.JTable tabel_buku;
+    private org.itenas.uas.view.component.swing.TableDark tabel_buku;
     private javax.swing.JTextField txt_harga;
     private javax.swing.JTextField txt_id_buku;
     private javax.swing.JTextField txt_judul;
