@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Kelompok 1
  */
 public class Sewa {
-    private String id;
+    private Integer id;
     private String tglSewa;
     private String tglKembali;
     private double totalHarga;
@@ -24,13 +24,14 @@ public class Sewa {
     public Sewa() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getTglSewa() {
         return tglSewa;
@@ -96,4 +97,19 @@ public class Sewa {
         this.member = member;
     }
     
+    public String getKomikId() {
+        if (komik != null && komik.getId() != null) {
+            return komik.getId();
+        } else {
+            return "NULL";
+        }
+    }
+    
+    public String getBukuId() {
+        if (buku != null && buku.getId() != null) {
+            return buku.getId();
+        } else {
+            return "NULL";
+        }
+    }
 }

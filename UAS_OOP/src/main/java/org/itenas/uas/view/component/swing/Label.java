@@ -10,8 +10,7 @@ import java.awt.RenderingHints;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
-import org.itenas.uas.view.component.Message;
-import org.itenas.uas.view.component.Message.MessageType;
+import org.itenas.uas.view.component.swing.Message.MessageType;
 
 public class Label extends JTextField {
 
@@ -63,9 +62,9 @@ public class Label extends JTextField {
     public void showMessage(MessageType messageType, String message) {
         this.messageType = messageType;
         if (messageType == MessageType.SUCCESS) {
-            setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\success.png"));
+            setPrefixIcon(new ImageIcon(getClass().getResource("/images/success.png")));
         } else {
-            setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\error.png"));
+            setPrefixIcon(new ImageIcon(getClass().getResource("/images/error.png")));
         }
     }
 

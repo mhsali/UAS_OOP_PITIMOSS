@@ -4,15 +4,13 @@
  */
 package org.itenas.uas.view.component;
 
+import org.itenas.uas.view.component.swing.Message;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -101,17 +99,17 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
         
         MyTextField txtUser = new MyTextField();
-        txtUser.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\user.png"));
+        txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/images/user.png")));
         txtUser.setHint("Username");
         register.add(txtUser, "w 60%");
         
         MyTextField txtEmail = new MyTextField();
-        txtEmail.setPrefixIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\mail.png"));
+        txtEmail.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mail.png")));
         txtEmail.setHint("Email");
         register.add(txtEmail, "w 60%");
         
         MyPasswordField txtPass = new MyPasswordField();
-        txtPass.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\pass.png"));
+        txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/images/pass.png")));
         txtPass.setHint("Password");
         register.add(txtPass, "w 60%");
         
@@ -152,12 +150,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         login.add(label);
         
         MyTextField txtEmail = new MyTextField();
-        txtEmail.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\user.png"));
+        txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/images/user.png")));
         txtEmail.setHint("Username");
         login.add(txtEmail, "w 55%");
         
         MyPasswordField txtPass = new MyPasswordField();
-        txtPass.setPrefixIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\pass.png"));
+        txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/images/pass.png")));
         txtPass.setHint("Password");
         login.add(txtPass, "w 55%");;
 

@@ -85,12 +85,6 @@ public class MemberServiceImpl implements MemberService{
                 member.setAlamat(rs.getString("alamat"));
                 member.setEmail(rs.getString("email"));
                 member.setNomorTelp(rs.getString("nomor_telepon"));
-                /*Akun akun = new Akun();
-                akun.setId(rs.getInt("id_akun"));
-                akun.setEmail(rs.getString("email"));
-                akun.setUsername(rs.getString("username"));
-                akun.setRole(rs.getString("role"));
-                member.setAkun(akun);*/
                 
                 listMember.add(member);
             }
@@ -162,7 +156,7 @@ public class MemberServiceImpl implements MemberService{
     public Member findById(String id) {
         Member member = null;
         Akun akun = null;
-        String sql = "SELECT * FROM member WHERE id_member="+id+"";
+        String sql = "SELECT * FROM member WHERE id_member = '"+id+"'";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
@@ -178,12 +172,6 @@ public class MemberServiceImpl implements MemberService{
                 member.setAlamat(rs.getString("alamat"));
                 member.setEmail(rs.getString("email"));
                 member.setNomorTelp(rs.getString("nomor_telepon"));
-                akun = new Akun();
-                akun.setId(rs.getInt("id_akun"));
-                akun.setEmail(rs.getString("email"));
-                akun.setUsername(rs.getString("username"));
-                akun.setRole(rs.getString("role"));
-                member.setAkun(akun);
             }
             conMan.disconnect();
         } catch (SQLException ex) {

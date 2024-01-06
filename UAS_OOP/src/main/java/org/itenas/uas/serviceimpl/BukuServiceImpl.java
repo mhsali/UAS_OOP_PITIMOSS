@@ -61,7 +61,7 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String create(Buku object) {
-        conMan = new ConnectionManager();
+    conMan = new ConnectionManager();
     conn = conMan.connect();
     String result = "GAGAL untuk menambah buku!!...";
 

@@ -16,7 +16,7 @@ import javax.swing.JCheckBox;
  */
 public class ShowPasswordCheckBox extends JCheckBox{
      public ShowPasswordCheckBox() {
-        this.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\org\\itenas\\uas\\images\\eyes.png"));
+        this.setIcon(new ImageIcon(getClass().getResource("/images/eyes.png")));
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
