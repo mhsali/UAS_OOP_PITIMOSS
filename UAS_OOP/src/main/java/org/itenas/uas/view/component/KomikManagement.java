@@ -167,7 +167,7 @@ public class KomikManagement extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("KOMIK MANAGEMENT");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-comics-100.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/komik.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
         tabel_komik.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,7 +188,9 @@ public class KomikManagement extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabel_komik);
 
+        btn_print.setBackground(new java.awt.Color(255, 255, 255));
         btn_print.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_print.setForeground(new java.awt.Color(0, 0, 0));
         btn_print.setText("PRINT");
         btn_print.setMargin(new java.awt.Insets(4, 14, 4, 14));
         btn_print.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +199,9 @@ public class KomikManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_refresh.setBackground(new java.awt.Color(255, 255, 255));
         btn_refresh.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_refresh.setForeground(new java.awt.Color(0, 0, 0));
         btn_refresh.setText("REFRESH");
         btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +232,9 @@ public class KomikManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_search.setBackground(new java.awt.Color(255, 255, 255));
         btn_search.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(0, 0, 0));
         btn_search.setText("SEARCH");
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

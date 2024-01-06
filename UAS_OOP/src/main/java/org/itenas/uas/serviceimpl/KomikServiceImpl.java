@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itenas.uas.pojo.Buku;
 import org.itenas.uas.pojo.Komik;
 import org.itenas.uas.utilities.ConnectionManager;
 import org.itenas.uas.service.KomikService;
@@ -163,4 +164,142 @@ private ConnectionManager conMan;
         }
         return result;
     }
+
+    @Override
+    public List<Komik> findBacaanByJudul(String judul) {
+        List<Komik> listKomik = new ArrayList<>();
+        Komik komik = null;
+        String sql = "SELECT * FROM KOMIK komik WHERE judul_komik LIKE '%" + judul + "%'";
+        
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
+    
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            komik = new Komik();
+                komik.setId(rs.getString("id_komik"));
+                komik.setJudul(rs.getString("judul_komik"));
+                komik.setPengarang(rs.getString("pengarang"));
+                komik.setPenerbit(rs.getString("penerbit"));
+                komik.setTahunTerbit(rs.getString("tahun_terbit"));
+                komik.setHarga(rs.getDouble("harga_komik"));
+                komik.setStatus(rs.getString("status"));
+                komik.setVolume(rs.getString("volume"));
+
+                listKomik.add(komik);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listKomik;    
+        }
+
+    @Override
+    public List<Komik> findBacaanByPengarang(String pengarang) {
+    List<Komik> listKomik = new ArrayList<>();
+    Komik komik = null;
+    String sql = "SELECT * FROM KOMIK komik WHERE pengarang LIKE '%" + pengarang + "%'";
+        
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
+    
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            komik = new Komik();
+                komik.setId(rs.getString("id_komik"));
+                komik.setJudul(rs.getString("judul_komik"));
+                komik.setPengarang(rs.getString("pengarang"));
+                komik.setPenerbit(rs.getString("penerbit"));
+                komik.setTahunTerbit(rs.getString("tahun_terbit"));
+                komik.setHarga(rs.getDouble("harga_komik"));
+                komik.setStatus(rs.getString("status"));
+                komik.setVolume(rs.getString("volume"));
+
+                listKomik.add(komik);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listKomik;       
+    }
+
+    @Override
+    public List<Komik> findBacaanByPenerbit(String penerbit) {
+    List<Komik> listKomik = new ArrayList<>();
+    Komik komik = null;
+    String sql = "SELECT * FROM KOMIK komik WHERE penerbit LIKE '%" + penerbit + "%'";
+        
+        
+   conMan = new ConnectionManager();
+    conn = conMan.connect();
+    Statement stmt = null;
+
+    
+    try
+    {
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            komik = new Komik();
+                komik.setId(rs.getString("id_komik"));
+                komik.setJudul(rs.getString("judul_komik"));
+                komik.setPengarang(rs.getString("pengarang"));
+                komik.setPenerbit(rs.getString("penerbit"));
+                komik.setTahunTerbit(rs.getString("tahun_terbit"));
+                komik.setHarga(rs.getDouble("harga_komik"));
+                komik.setStatus(rs.getString("status"));
+                komik.setVolume(rs.getString("volume"));
+
+                listKomik.add(komik);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        conMan.disconnect();
+    }
+
+    return listKomik;       
+        }
 }

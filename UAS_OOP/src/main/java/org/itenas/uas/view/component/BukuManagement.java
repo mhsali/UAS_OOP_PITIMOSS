@@ -165,7 +165,9 @@ public class BukuManagement extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        btn_print.setBackground(new java.awt.Color(255, 255, 255));
         btn_print.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_print.setForeground(new java.awt.Color(0, 0, 0));
         btn_print.setText("PRINT");
         btn_print.setMargin(new java.awt.Insets(4, 14, 4, 14));
         btn_print.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +176,9 @@ public class BukuManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_refresh.setBackground(new java.awt.Color(255, 255, 255));
         btn_refresh.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_refresh.setForeground(new java.awt.Color(0, 0, 0));
         btn_refresh.setText("REFRESH");
         btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +209,9 @@ public class BukuManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_search.setBackground(new java.awt.Color(255, 255, 255));
         btn_search.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(0, 0, 0));
         btn_search.setText("SEARCH");
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +223,7 @@ public class BukuManagement extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("BUKU MANAGEMENT");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-books-100.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buku.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -436,7 +442,7 @@ public class BukuManagement extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 71, Short.MAX_VALUE)
+                        .addGap(0, 65, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_id_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
@@ -467,8 +473,7 @@ public class BukuManagement extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

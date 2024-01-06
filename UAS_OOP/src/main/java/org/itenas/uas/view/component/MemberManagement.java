@@ -148,6 +148,8 @@ public class MemberManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(245, 172, 44));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("MEMBER MANAGEMENT");
@@ -170,7 +172,9 @@ public class MemberManagement extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabel_member);
 
+        btn_print.setBackground(new java.awt.Color(255, 255, 255));
         btn_print.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_print.setForeground(new java.awt.Color(0, 0, 0));
         btn_print.setText("PRINT");
         btn_print.setMargin(new java.awt.Insets(4, 14, 4, 14));
         btn_print.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +183,9 @@ public class MemberManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_refresh.setBackground(new java.awt.Color(255, 255, 255));
         btn_refresh.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_refresh.setForeground(new java.awt.Color(0, 0, 0));
         btn_refresh.setText("REFRESH");
         btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +216,9 @@ public class MemberManagement extends javax.swing.JFrame {
             }
         });
 
+        btn_search.setBackground(new java.awt.Color(255, 255, 255));
         btn_search.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(0, 0, 0));
         btn_search.setText("SEARCH");
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +226,7 @@ public class MemberManagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-user-groups-100.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user group.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,13 +235,12 @@ public class MemberManagement extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(194, 194, 194)
-                            .addComponent(btn_print, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(btn_print, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 86, Short.MAX_VALUE)
+                        .addGap(0, 90, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)

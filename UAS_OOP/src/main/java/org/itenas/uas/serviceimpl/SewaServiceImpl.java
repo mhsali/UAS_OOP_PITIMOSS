@@ -204,4 +204,9 @@ public Integer create(Sewa object) {
         }
         return result;
     }
+
+    @Override
+    public List<Sewa> findBacaanByJudul(String judul) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

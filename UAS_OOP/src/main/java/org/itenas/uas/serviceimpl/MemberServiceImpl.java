@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itenas.uas.serviceimpl;
 
-import org.itenas.uas.pojo.Akun;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itenas.uas.pojo.Akun;
 import org.itenas.uas.pojo.Member;
 import org.itenas.uas.service.MemberService;
+import org.itenas.uas.serviceimpl.BukuServiceImpl;
 import org.itenas.uas.utilities.ConnectionManager;
 
-/**
- *
- * @author Billhafidz
- */
 public class MemberServiceImpl implements MemberService{
     private ConnectionManager conMan;
     private Connection conn;
@@ -167,5 +161,10 @@ public class MemberServiceImpl implements MemberService{
 
     return result;
 }
+
+    @Override
+    public List<Member> findBacaanByJudul(String judul) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
