@@ -26,45 +26,6 @@ public class MemberServiceImpl implements MemberService{
     private Connection conn;
     Statement stmt;
     ResultSet rs;
-
-    public Member login(String username, String password) {
-        Member member = null;
-        Akun akun = null;
-        String sql = "SELECT m.id_member, m.nama_member, m.alamat, m.email, m.nomor_telepon, "
-                + "ak.id_akun, ak.email, ak.username, ak.role "
-                + "FROM member m, akun ak "
-                + "WHERE m.id_akun = m.id_akun "
-                + "AND ak.username = '"+username+"' "
-                + "AND ak.password = '"+password+"'";
-        
-        conMan = new ConnectionManager();
-        conn = conMan.connect();
-        
-        try {
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            
-            while (rs.next()) {
-                member = new Member();
-                member.setId(rs.getString("id_member"));
-                member.setNama(rs.getString("nama_member"));
-                member.setAlamat(rs.getString("alamat"));
-                member.setEmail(rs.getString("email"));
-                member.setNomorTelp(rs.getString("nomor_telepon"));
-                akun = new Akun();
-                akun.setId(rs.getInt("id_akun"));
-                akun.setEmail(rs.getString("email"));
-                akun.setUsername(rs.getString("username"));
-                akun.setRole(rs.getString("role"));
-                member.setAkun(akun);
-            }
-            conMan.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-        return member;
-    }
     
     @Override
     public List<Member> findAll() {
@@ -99,58 +60,61 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public String create(Member object) {
-        String result = "";
-        String sql = "INSERT INTO member "
-                + "VALUES('"+object.getId()+"', "
-                + ""+object.getNama()+", "
-                + "'"+object.getAlamat()+"', "
-                + "'"+object.getEmail()+"', "
-                + "'"+object.getNomorTelp()+"', "
-                + "'"+object.getAkun().getEmail()+"'"
-                + "'"+object.getAkun().getUsername()+"'"
-                + "'"+object.getAkun().getPassword()+"'"
-                + "'"+object.getAkun().getRole()+"'"
-                + "')";
+    conMan = new ConnectionManager();
+    conn = conMan.connect();
+    String result = "GAGAL untuk menambah buku!!...";
+    
+    try {
+        String sql = "INSERT INTO member (id_member, nama_member, alamat, email, nomor_telepon) VALUES ('"
+                + object.getId() + "', '"
+                + object.getNama()+ "', '" 
+                + object.getAlamat()+ "', '" 
+                + object.getEmail()+ "', '"
+                + object.getNomorTelp()+ "')";
         
-        conMan = new ConnectionManager();
-        conn = conMan.connect();
-        
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            conMan.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, ex);
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Buku Terbuat!!...";
         }
-        return result;
+    conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-        @Override
-    public String update(Member object) {
+    return result;
+}
+        
+
+
+    @Override
+    public String update(Member object) {    
+        conMan = new ConnectionManager();
+        conn = conMan.connect();
         String result = "";
+        
+    try {
         String sql = "UPDATE member SET id_member='"+object.getId()+"', "
                 + "nama_member="+object.getNama()+", "
                 + "alamat='"+object.getAlamat()+"', "
                 + "email='"+object.getEmail()+"', "
-                + "username='"+object.getAkun().getUsername()+"', "
-                + "password='"+object.getAkun().getPassword()+"' "
-                + "role='"+object.getAkun().getRole()+"' "
+                + "nomor_telepon='"+object.getNomorTelp()+"' "
                 + "WHERE id_member="+object.getId()+"";
         
-        conMan = new ConnectionManager();
-        conn = conMan.connect();
-        
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            conMan.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberServiceImpl.class.getName()).
-                    log(Level.SEVERE, null, ex);
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Buku Berhasil Di Update";
         }
-        return result;
+    conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return result;
+}
 
     @Override
     public Member findById(String id) {
@@ -178,26 +142,30 @@ public class MemberServiceImpl implements MemberService{
             Logger.getLogger(MemberServiceImpl.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
-        return member;
-    }
-
+    return member;
+}
+    
     @Override
     public String delete(String id) {
-        String result = "";
-        String sql = "DELETE FROM member WHERE id_member="+id+"";
-        
-        conMan = new ConnectionManager();
-        conn = conMan.connect();
-        
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            conMan.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, ex);
+    conMan = new ConnectionManager();
+    conn = conMan.connect();
+    String result = "Failed to delete member";
+
+    try {
+        String sql = "DELETE FROM member WHERE id_member='" + id + "'";
+
+        stmt = conn.createStatement();
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            result = "Member deleted successfully";
         }
-        return result;
+    conMan.disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(MemberServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return result;
+}
     
 }

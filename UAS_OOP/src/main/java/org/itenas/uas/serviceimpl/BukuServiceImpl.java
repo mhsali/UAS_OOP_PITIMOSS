@@ -81,7 +81,7 @@ public class BukuServiceImpl implements BukuService{
         if (rowsAffected > 0) {
             result = "Buku Terbuat!!...";
         }
-        conMan.disconnect();
+    conMan.disconnect();
     } catch (SQLException ex) {
         Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -111,16 +111,17 @@ public class BukuServiceImpl implements BukuService{
         if (rowsAffected > 0) {
             result = "Buku Berhasil Di Update";
         }
-        conMan.disconnect();
+    conMan.disconnect();
     } catch (SQLException ex) {
         Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
 
     return result;
 }
+    
     @Override
     public Buku findById(String id) {
-     conMan = new ConnectionManager();
+    conMan = new ConnectionManager();
     conn = conMan.connect();
     Buku buku = null;
 
@@ -150,7 +151,7 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public String delete(String id) {
-         conMan = new ConnectionManager();
+    conMan = new ConnectionManager();
     conn = conMan.connect();
     String result = "Failed to delete book";
 
@@ -163,13 +164,11 @@ public class BukuServiceImpl implements BukuService{
         if (rowsAffected > 0) {
             result = "Book deleted successfully";
         }
-        conMan.disconnect();
+    conMan.disconnect();
     } catch (SQLException ex) {
         Logger.getLogger(BukuServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
 
     return result;
-}
-
-    
+}   
 }
