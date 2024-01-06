@@ -118,6 +118,7 @@ public class BukuServiceImpl implements BukuService{
 
     return result;
 }
+    
     @Override
     public Buku findById(String id) {
     conMan = new ConnectionManager();
@@ -169,7 +170,5 @@ public class BukuServiceImpl implements BukuService{
     }
 
     return result;
-}
-
-    
+}   
 }
