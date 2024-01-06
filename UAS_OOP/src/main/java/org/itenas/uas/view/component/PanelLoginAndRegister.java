@@ -4,6 +4,7 @@
  */
 package org.itenas.uas.view.component;
 
+import com.mysql.cj.x.protobuf.MysqlxConnection;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -241,7 +242,10 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
             member = akunService.login(username, Password);
             
             if(member != null){
+                member.setLoginStatus(true);  
                 showMessage(Message.MessageType.SUCCESS, "Login Berhasil!", "login");
+                DashboardUser dashboarduser = new DashboardUser();
+                dashboarduser.setVisible(true);
             } else{
                 showMessage(Message.MessageType.ERROR, "Login Gagal", "login");
             }

@@ -16,4 +16,5 @@ public interface CrudRepository<T, ID> {
     ID update(T object);
     T findById(ID id);
     ID delete(ID id);
+    List<T> findBacaanByJudul(String judul);
 }

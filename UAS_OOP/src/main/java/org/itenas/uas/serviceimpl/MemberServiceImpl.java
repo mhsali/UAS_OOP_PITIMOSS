@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itenas.uas.serviceimpl;
 
-import org.itenas.uas.pojo.Akun;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itenas.uas.pojo.Akun;
 import org.itenas.uas.pojo.Member;
 import org.itenas.uas.service.MemberService;
+import org.itenas.uas.serviceimpl.BukuServiceImpl;
 import org.itenas.uas.utilities.ConnectionManager;
 
-/**
- *
- * @author Billhafidz
- */
 public class MemberServiceImpl implements MemberService{
     private ConnectionManager conMan;
     private Connection conn;
@@ -118,29 +112,30 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member findById(String id) {
-    conMan = new ConnectionManager();
-    conn = conMan.connect();
-    Member member = null;
-
-    try {
-        String sql = "SELECT * FROM member WHERE id_member='" + id + "'";
-
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery(sql);
-
-        if (rs.next()) {
-            member = new Member();
-            member.setId(rs.getString("id_member"));
-            member.setNama(rs.getString("nama_member"));
-            member.setAlamat(rs.getString("alamat"));
-            member.setEmail(rs.getString("email"));
-            member.setNomorTelp(rs.getString("nomor_telepon"));
+        Member member = null;
+        Akun akun = null;
+        String sql = "SELECT * FROM member WHERE id_member = '"+id+"'";
+        
+        conMan = new ConnectionManager();
+        conn = conMan.connect();
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                member = new Member();
+                member.setId(rs.getString("id_member"));
+                member.setNama(rs.getString("nama_member"));
+                member.setAlamat(rs.getString("alamat"));
+                member.setEmail(rs.getString("email"));
+                member.setNomorTelp(rs.getString("nomor_telepon"));
+            }
+            conMan.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
-        conMan.disconnect();
-    } catch (SQLException ex) {
-        Logger.getLogger(MemberServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
     return member;
 }
     
@@ -166,5 +161,10 @@ public class MemberServiceImpl implements MemberService{
 
     return result;
 }
+
+    @Override
+    public List<Member> findBacaanByJudul(String judul) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
