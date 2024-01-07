@@ -515,7 +515,7 @@ sewa.setTglKembali(tglKembali);
 
 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 java.util.Date datePinjam;
-double totalBiaya = 0;  //
+double totalBiaya = 0;  
 
 try {
     datePinjam = sdf.parse(tglSewa);
