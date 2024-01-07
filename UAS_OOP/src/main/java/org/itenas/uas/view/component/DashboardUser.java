@@ -16,29 +16,40 @@ import org.itenas.uas.view.main.Main;
 
 /**
  *
- * @author lin
+ * @author Kelompok 1
  */
 public class DashboardUser extends javax.swing.JFrame {
 
-        BukuServiceImpl bukuService;
-        KomikServiceImpl komikService;
-
+    BukuServiceImpl bukuService;
+    KomikServiceImpl komikService;
+    PanelLoginAndRegister panelLoginRegister = new PanelLoginAndRegister();
+    Main utama;
+    Member member = new Member();
+    
+    boolean isLogin = false;
+    
     public boolean isEmpty(){
         
             return false;
         
     }
     
-    private boolean userLoggedIn = false;
-    
-    private void updateButtonStatus() {
-    boolean enableButtons = userLoggedIn;
-
-    
+    public DashboardUser(Member member) {
+        initComponents();
+        if(!member.isLoginStatus()){
+            btn_sewaBuku.setEnabled(false);
+            btn_sewaKomik.setEnabled(false);
+        } else{
+           isLogin = member.isLoginStatus();
+           utama = new Main();
+           utama.setVisible(false);
+           btn_sewaBuku.setEnabled(true);
+           btn_sewaKomik.setEnabled(true);
+        }
+        
     }
     
-    
-    public DashboardUser() {
+    public DashboardUser(){
         initComponents();
     }
     
@@ -204,10 +215,10 @@ public class DashboardUser extends javax.swing.JFrame {
         radio_group = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
-        sewaBuku = new org.itenas.uas.view.component.swing.ButtonOutLine();
+        btn_sewaBuku = new org.itenas.uas.view.component.swing.ButtonOutLine();
         bacaBuku = new org.itenas.uas.view.component.swing.ButtonOutLine();
         bacaKomik = new org.itenas.uas.view.component.swing.ButtonOutLine();
-        buttonOutLine5 = new org.itenas.uas.view.component.swing.ButtonOutLine();
+        btn_sewaKomik = new org.itenas.uas.view.component.swing.ButtonOutLine();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtPenerbit = new javax.swing.JTextField();
@@ -232,12 +243,12 @@ public class DashboardUser extends javax.swing.JFrame {
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logopitimoss.png"))); // NOI18N
 
-        sewaBuku.setForeground(new java.awt.Color(255, 255, 255));
-        sewaBuku.setText("Sewa Buku");
-        sewaBuku.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        sewaBuku.addActionListener(new java.awt.event.ActionListener() {
+        btn_sewaBuku.setForeground(new java.awt.Color(255, 255, 255));
+        btn_sewaBuku.setText("Sewa Buku");
+        btn_sewaBuku.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_sewaBuku.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sewaBukuActionPerformed(evt);
+                btn_sewaBukuActionPerformed(evt);
             }
         });
 
@@ -251,7 +262,7 @@ public class DashboardUser extends javax.swing.JFrame {
         });
 
         bacaKomik.setForeground(new java.awt.Color(255, 255, 255));
-        bacaKomik.setText("Sewa Baca");
+        bacaKomik.setText("Baca Komik");
         bacaKomik.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         bacaKomik.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,12 +270,12 @@ public class DashboardUser extends javax.swing.JFrame {
             }
         });
 
-        buttonOutLine5.setForeground(new java.awt.Color(255, 255, 255));
-        buttonOutLine5.setText("Sewa Komik");
-        buttonOutLine5.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        buttonOutLine5.addActionListener(new java.awt.event.ActionListener() {
+        btn_sewaKomik.setForeground(new java.awt.Color(255, 255, 255));
+        btn_sewaKomik.setText("Sewa Komik");
+        btn_sewaKomik.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_sewaKomik.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOutLine5ActionPerformed(evt);
+                btn_sewaKomikActionPerformed(evt);
             }
         });
 
@@ -279,9 +290,9 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(bacaKomik, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOutLine5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_sewaKomik, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bacaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sewaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_sewaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -290,11 +301,11 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(sewaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_sewaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(bacaBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(buttonOutLine5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_sewaKomik, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(bacaKomik, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(294, Short.MAX_VALUE))
@@ -522,16 +533,15 @@ String status = tabel_buku.getValueAt(row, 6).toString();
  txtPenerbit.setText(penerbit);
     }//GEN-LAST:event_tabel_bukuMouseClicked
 
-    private void sewaBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sewaBukuActionPerformed
-   updateButtonStatus(); 
-
-        
-        if (userLoggedIn) {
-             JOptionPane.showMessageDialog(null, "gacors");
-        } else {
-            JOptionPane.showMessageDialog(null, "Anda harus login untuk melakukan tindakan ini!");
+    private void btn_sewaBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sewaBukuActionPerformed
+        if(!isLogin){
+            JOptionPane.showMessageDialog(null, "Anda Harus Login");
+        } else{
+            SewaBuku formSewa = new SewaBuku();
+            formSewa.setVisible(true);
+            this.dispose();
         }
-    }//GEN-LAST:event_sewaBukuActionPerformed
+    }//GEN-LAST:event_btn_sewaBukuActionPerformed
 
     private void bacaBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bacaBukuActionPerformed
         // TODO add your handling code here:
@@ -541,9 +551,9 @@ String status = tabel_buku.getValueAt(row, 6).toString();
         // TODO add your handling code here:
     }//GEN-LAST:event_bacaKomikActionPerformed
 
-    private void buttonOutLine5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOutLine5ActionPerformed
+    private void btn_sewaKomikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sewaKomikActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonOutLine5ActionPerformed
+    }//GEN-LAST:event_btn_sewaKomikActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
     emptyField();
@@ -662,7 +672,8 @@ String status = tabel_buku.getValueAt(row, 6).toString();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.itenas.uas.view.component.swing.ButtonOutLine bacaBuku;
     private org.itenas.uas.view.component.swing.ButtonOutLine bacaKomik;
-    private org.itenas.uas.view.component.swing.ButtonOutLine buttonOutLine5;
+    private org.itenas.uas.view.component.swing.ButtonOutLine btn_sewaBuku;
+    private org.itenas.uas.view.component.swing.ButtonOutLine btn_sewaKomik;
     private org.itenas.uas.view.component.swing.ButtonOutLine cancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -677,7 +688,6 @@ String status = tabel_buku.getValueAt(row, 6).toString();
     private javax.swing.JRadioButton radio_buku;
     private javax.swing.ButtonGroup radio_group;
     private javax.swing.JRadioButton radio_komik;
-    private org.itenas.uas.view.component.swing.ButtonOutLine sewaBuku;
     private org.itenas.uas.view.component.swing.ButtonOutLine sewaBuku2;
     private org.itenas.uas.view.component.swing.TableDark tabel_buku;
     private javax.swing.JTextField txtJudul;

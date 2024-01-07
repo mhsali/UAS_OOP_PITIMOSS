@@ -40,6 +40,8 @@ public class BukuManagement extends javax.swing.JFrame {
     public BukuManagement() {
         initComponents();
         this.setLocationRelativeTo(null);
+        tabel_buku.fixTable(jScrollPane1);
+        DefaultTableModel mode = (DefaultTableModel) tabel_buku.getModel();
         loadData();
     }
     
@@ -159,7 +161,7 @@ public class BukuManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1120, 800));
-        setPreferredSize(new java.awt.Dimension(1110, 760));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(245, 172, 44));
 
@@ -302,13 +304,13 @@ public class BukuManagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("ID Buku");
 
-        jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Judul BUku");
+        jLabel3.setText("Judul Buku");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -322,7 +324,7 @@ public class BukuManagement extends javax.swing.JFrame {
         });
 
         group_stat.add(radio_tersedia);
-        radio_tersedia.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        radio_tersedia.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         radio_tersedia.setForeground(new java.awt.Color(255, 255, 255));
         radio_tersedia.setText("Tersedia");
         radio_tersedia.addActionListener(new java.awt.event.ActionListener() {
@@ -332,7 +334,7 @@ public class BukuManagement extends javax.swing.JFrame {
         });
 
         group_stat.add(radio_tidak_tersedia);
-        radio_tidak_tersedia.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        radio_tidak_tersedia.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         radio_tidak_tersedia.setForeground(new java.awt.Color(255, 255, 255));
         radio_tidak_tersedia.setText("Tidak Tersedia");
         radio_tidak_tersedia.addActionListener(new java.awt.event.ActionListener() {
@@ -343,23 +345,23 @@ public class BukuManagement extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Pengarang");
 
-        jLabel6.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Penerbit");
 
-        jLabel7.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Harga");
 
-        jLabel8.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tahun Terbit");
 
-        jLabel12.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Status");
 
@@ -458,7 +460,7 @@ public class BukuManagement extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(radio_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txt_tahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -514,8 +516,8 @@ public class BukuManagement extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(radio_tersedia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radio_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radio_tidak_tersedia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
