@@ -35,6 +35,7 @@ public class KomikManagement extends javax.swing.JFrame {
     public KomikManagement() {
         initComponents();
         this.setLocationRelativeTo(null);
+        tabel_komik.fixTable(jScrollPane1);
         loadData();
     }
     
@@ -158,6 +159,7 @@ public class KomikManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1120, 800));
+        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(245, 172, 44));
 

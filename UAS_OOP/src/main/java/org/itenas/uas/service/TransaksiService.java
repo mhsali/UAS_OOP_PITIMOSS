@@ -6,6 +6,7 @@ package org.itenas.uas.service;
 
 import java.util.List;
 import org.itenas.uas.pojo.Sewa;
+import org.itenas.uas.pojo.Transaksi;
 
 /**
  *
@@ -15,4 +16,6 @@ public interface TransaksiService {
     public List<Sewa> cariPenyewaanMember(String idMember);
     public void updateStatusPeminjamanBuku(Sewa object);
     public void updateStatusPeminjamanKomik(Sewa object);
+    public List<Sewa> konfirmasiTransaksi(String idMember, String tgl);
+    public void buatTransaksi(Transaksi object);
 }

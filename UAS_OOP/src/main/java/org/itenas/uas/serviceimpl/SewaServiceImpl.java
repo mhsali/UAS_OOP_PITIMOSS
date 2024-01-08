@@ -22,7 +22,7 @@ import org.itenas.uas.utilities.ConnectionManager;
 
 /**
  *
- * @author Win10
+ * @author Kelompok 1
  */
 public class SewaServiceImpl implements SewaService{
     private ConnectionManager conMan;
@@ -81,8 +81,8 @@ public class SewaServiceImpl implements SewaService{
 public Integer create(Sewa object) {
     int result = 0;
     String sql = "INSERT INTO sewa(tgl_sewa, tgl_kembali, total_harga, "
-            + "denda, status, id_buku, id_komik, id_member) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            + "status, id_buku, id_komik, id_member) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     conMan = new ConnectionManager();
     conn = conMan.connect();
@@ -91,24 +91,23 @@ public Integer create(Sewa object) {
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, object.getTglSewa());
         pstmt.setString(2, object.getTglKembali());
-        pstmt.setDouble(3, object.getTotalHarga());
-        pstmt.setDouble(4, object.getDenda());
-        pstmt.setString(5, object.getStatus());
+        pstmt.setDouble(3, object.getTotalHarga());;
+        pstmt.setString(4, object.getStatus());
 
         // Handle null values for Buku and Komik IDs
         if (object.getBuku() != null && object.getBuku().getId() != null) {
-            pstmt.setString(6, object.getBuku().getId());
+            pstmt.setString(5, object.getBuku().getId());
+        } else {
+            pstmt.setNull(5, java.sql.Types.VARCHAR);
+        }
+
+        if (object.getKomik() != null && object.getKomik().getId() != null) {
+            pstmt.setString(6, object.getKomik().getId());
         } else {
             pstmt.setNull(6, java.sql.Types.VARCHAR);
         }
 
-        if (object.getKomik() != null && object.getKomik().getId() != null) {
-            pstmt.setString(7, object.getKomik().getId());
-        } else {
-            pstmt.setNull(7, java.sql.Types.VARCHAR);
-        }
-
-        pstmt.setString(8, object.getMember().getId());
+        pstmt.setString(7, object.getMember().getId());
 
         result = pstmt.executeUpdate();
 
@@ -133,7 +132,11 @@ public Integer create(Sewa object) {
         
         try {
             stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            int rowsAffected = stmt.executeUpdate(sql);
+            if(rowsAffected > 0){
+                result = 1;
+            }
+            
             conMan.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(SewaServiceImpl.class.getName()).
@@ -146,7 +149,7 @@ public Integer create(Sewa object) {
     public Sewa findById(Integer id) {
         Sewa sewa = null;
         String handle, handle2;
-        String sql = "SELECT * FROM sewa WHERE id="+id+"";
+        String sql = "SELECT * FROM sewa WHERE id_sewa = "+id+"";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();
@@ -189,7 +192,7 @@ public Integer create(Sewa object) {
     @Override
     public Integer delete(Integer id) {
         int result = 0;
-        String sql = "DELETE FROM sewa WHERE id="+id+"";
+        String sql = "DELETE FROM sewa WHERE id_sewa = "+id+"";
         
         conMan = new ConnectionManager();
         conn = conMan.connect();

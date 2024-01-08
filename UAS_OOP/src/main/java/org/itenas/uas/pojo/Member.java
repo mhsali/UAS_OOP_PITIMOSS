@@ -14,7 +14,7 @@ public class Member {
     private String alamat;
     private String email;
     private String nomorTelp;
-    private boolean loginStatus;
+    private boolean loginStatus = false;
     private Akun akun;
 
     public Member() {

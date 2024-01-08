@@ -19,11 +19,11 @@ import org.itenas.uas.pojo.Member;
 import org.itenas.uas.pojo.Sewa;
 import org.itenas.uas.service.MemberService;
 import org.itenas.uas.service.SewaService;
-import org.itenas.uas.service.TransaksiService;
 import org.itenas.uas.serviceimpl.BukuServiceImpl;
 import org.itenas.uas.serviceimpl.MemberServiceImpl;
 import org.itenas.uas.serviceimpl.SewaServiceImpl;
 import org.itenas.uas.serviceimpl.TransaksiServiceImpl;
+import org.itenas.uas.service.TransaksiService;
 
 /**
  *
@@ -482,6 +482,8 @@ public class SewaBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_bersihkanMouseClicked
 
     private void btn_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMouseClicked
+        DashboardUser dashboard = new DashboardUser();
+        dashboard.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_exitMouseClicked
 
@@ -511,7 +513,6 @@ public class SewaBuku extends javax.swing.JFrame {
     sewa.setTglKembali(tglKembali);
     sewa.setTotalHarga(harga);
     sewa.setStatus("Belum dibayar");
-    sewa.setDenda(0);
     
     buku = new Buku();
     buku.setId(idBuku);

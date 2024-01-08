@@ -4,56 +4,46 @@
  */
 package org.itenas.uas.view.component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import org.itenas.uas.pojo.Member;
-import org.itenas.uas.service.MemberService;
-import org.itenas.uas.serviceimpl.MemberServiceImpl;
+import org.itenas.uas.pojo.Sewa;
+import org.itenas.uas.pojo.Transaksi;
+import org.itenas.uas.service.SewaService;
+import org.itenas.uas.serviceimpl.SewaServiceImpl;
+import org.itenas.uas.serviceimpl.TransaksiServiceImpl;
+import org.itenas.uas.service.TransaksiService;
 
 /**
  *
  * @author Win10
  */
-public class CrudMember extends javax.swing.JFrame {
+public class FormTransaksiAdmin extends javax.swing.JFrame {
 
-    MemberService memberService;
+    TransaksiService transaksiService;
+    SewaService sewaService;
+    Transaksi transaksi;
+    static List<Sewa> listSewa;
+    static String idMember;
+    static String tgl;
+    double totalHarga = 0;
     
-    public CrudMember() {
+    public FormTransaksiAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
-        tbl_member.fixTable(jScrollPane1);
-        DefaultTableModel mode = (DefaultTableModel) tbl_member.getModel();
-        for (int i = 1; i <= 20; i++) {
-            mode.addRow(new Object[]{i, "Ra Ven", 10, "001 001 001", "PP"});
-        }
-        //loadData();
+        tbl_sewa.fixTable(jScrollPane1);
+        DefaultTableModel mode = (DefaultTableModel) tbl_sewa.getModel();
 
     }
     
-    private void loadData() {
-        memberService = new MemberServiceImpl();
-        List<Member> listMember = new ArrayList<>();
-        listMember = memberService.findAll();
-        Object[][] objectMember = new Object[listMember.size()][5];
-        
-        int counter = 0;
-        
-        for (Member member : listMember) {
-            objectMember[counter][0] = member.getId();
-            objectMember[counter][1] = member.getNama();
-            objectMember[counter][2] = member.getAlamat();
-            objectMember[counter][3] = member.getEmail();
-            objectMember[counter][4] = member.getNomorTelp();
-            counter++;
-        }
-        tbl_member.setModel(new javax.swing.table.DefaultTableModel(
-            objectMember,
-            new String [] {
-                "ID_Member", "Nama_Member", "Alamat", "Email", "Nomor_Telepon"
-            }
-        ));
+    private void emptyField() {
+        txt_search.setText("");
+        lbl_totalHarga.setText("Rp.");
+        DefaultTableModel model = (DefaultTableModel) tbl_sewa.getModel();
+        model.setRowCount(0);
     }
 
     /**
@@ -68,21 +58,22 @@ public class CrudMember extends javax.swing.JFrame {
         Background = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         Judul = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btn_exit = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txt_search = new org.itenas.uas.view.component.swing.MyTextField();
         btn_search = new org.itenas.uas.view.component.swing.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_member = new org.itenas.uas.view.component.swing.TableDark();
+        tbl_sewa = new org.itenas.uas.view.component.swing.TableDark();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbl_totalHarga = new javax.swing.JLabel();
+        btn_konfirmasi = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        btn_refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(32767, 32767));
         setUndecorated(true);
 
         Background.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,24 +96,43 @@ public class CrudMember extends javax.swing.JFrame {
         Judul.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
         Judul.setForeground(new java.awt.Color(255, 255, 255));
         Judul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Judul.setText("Member List");
+        Judul.setText("Form Transaksi");
         Judul.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/transaction.png"))); // NOI18N
+
+        btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        btn_exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_exitMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(365, 365, 365)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Judul)
+                .addGap(384, 384, 384))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btn_exit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(Judul)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btn_exit)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(Judul))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
@@ -131,30 +141,57 @@ public class CrudMember extends javax.swing.JFrame {
 
         btn_search.setBackground(new java.awt.Color(245, 172, 44));
         btn_search.setForeground(new java.awt.Color(255, 255, 255));
-        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/success.png"))); // NOI18N
+        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         btn_search.setText("Cari");
         btn_search.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_searchMouseClicked(evt);
+            }
+        });
 
-        tbl_member.setBackground(new java.awt.Color(204, 204, 204));
-        tbl_member.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_sewa.setBackground(new java.awt.Color(204, 204, 204));
+        tbl_sewa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID_Member", "Nama_Member", "Alamat", "Email", "Nomor_Telepon"
+                "ID_Member", "Tgl_Sewa", "Tgl_Kembali", "Harga", "Status", "ID_Buku", "ID_Komik"
             }
         ));
-        jScrollPane1.setViewportView(tbl_member);
+        jScrollPane1.setViewportView(tbl_sewa);
 
-        jLabel2.setText("ID_Member");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Total Harga:");
 
-        jLabel3.setText("Nama_Member");
+        lbl_totalHarga.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_totalHarga.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_totalHarga.setText("Rp.");
 
-        jLabel4.setText("Alamat");
+        btn_konfirmasi.setBackground(new java.awt.Color(102, 255, 102));
+        btn_konfirmasi.setForeground(new java.awt.Color(255, 255, 255));
+        btn_konfirmasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/success.png"))); // NOI18N
+        btn_konfirmasi.setText("OK");
+        btn_konfirmasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_konfirmasiMouseClicked(evt);
+            }
+        });
 
-        jLabel5.setText("Email");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Konfirmasi Pembayaran?");
 
-        jLabel6.setText("Nomor_Telepon");
+        btn_refresh.setBackground(new java.awt.Color(255, 0, 0));
+        btn_refresh.setForeground(new java.awt.Color(255, 255, 255));
+        btn_refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/error.png"))); // NOI18N
+        btn_refresh.setText("CANCEL");
+        btn_refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_refreshMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
         Background.setLayout(BackgroundLayout);
@@ -172,20 +209,22 @@ public class CrudMember extends javax.swing.JFrame {
                         .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackgroundLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111)
+                        .addGap(18, 18, 18)
                         .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_totalHarga)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))))
-                .addContainerGap(171, Short.MAX_VALUE))
+                            .addGroup(BackgroundLayout.createSequentialGroup()
+                                .addComponent(btn_konfirmasi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btn_refresh)))))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,16 +234,16 @@ public class CrudMember extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackgroundLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(52, 52, 52)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addComponent(lbl_totalHarga)
+                        .addGap(77, 77, 77)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)))
+                        .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_konfirmasi)
+                            .addComponent(btn_refresh))))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -233,6 +272,75 @@ public class CrudMember extends javax.swing.JFrame {
         this.setLocation(x-xx,y-xy);
     }//GEN-LAST:event_BackgroundMouseDragged
 
+    private void btn_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_searchMouseClicked
+        idMember = txt_search.getText();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        tgl = formatter.format(currentDate);
+        
+        transaksiService = new TransaksiServiceImpl();
+        listSewa = new ArrayList<>();
+        listSewa = transaksiService.konfirmasiTransaksi(idMember, tgl);
+        Object[][] objectSewa = new Object[listSewa.size()][7];
+        
+        int counter = 0;
+        
+        for (Sewa sewa : listSewa) {
+            objectSewa[counter][0] = sewa.getMember().getId();
+            objectSewa[counter][1] = sewa.getTglSewa();
+            objectSewa[counter][2] = sewa.getTglKembali();
+            objectSewa[counter][3] = sewa.getTotalHarga();
+            objectSewa[counter][4] = sewa.getStatus();
+            objectSewa[counter][5] = sewa.getBuku().getId();
+            objectSewa[counter][6] = sewa.getKomik().getId();
+            totalHarga += sewa.getTotalHarga();
+            counter++;
+        }
+        lbl_totalHarga.setText("Rp. "+totalHarga);
+        tbl_sewa.setModel(new javax.swing.table.DefaultTableModel(
+            objectSewa,
+            new String [] {
+                "ID_Member", "Tgl_Sewa", "Tgl_Kembali", "Total_Harga", "Status", "ID_Buku", "ID_Komik"
+            }
+        ));
+    }//GEN-LAST:event_btn_searchMouseClicked
+
+    private void btn_konfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_konfirmasiMouseClicked
+        int cek = 0;
+        Sewa sewa = new Sewa();
+        transaksi = new Transaksi();
+        transaksi.setTglTransaksi(tgl);
+        transaksi.setTotalHarga(totalHarga);
+        transaksi.setJumlah(listSewa.size());
+        
+        Member member = new Member();
+        member.setId(idMember);
+        transaksi.setMember(member);
+        
+        transaksiService = new TransaksiServiceImpl();
+        
+        sewaService = new SewaServiceImpl();
+        if (listSewa != null && !listSewa.isEmpty()) {
+            sewa = listSewa.get(0);
+            cek = sewaService.update(sewa);
+            transaksiService.buatTransaksi(transaksi);
+        }
+        
+        if(cek > 0){
+            MessageForm message = new MessageForm();
+            message.gantiText("PESAN", "Transaksi Berhasil dikonfirmasi", "Lanjutkan");
+            message.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_konfirmasiMouseClicked
+
+    private void btn_refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_refreshMouseClicked
+        emptyField();
+    }//GEN-LAST:event_btn_refreshMouseClicked
+
+    private void btn_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMouseClicked
+        dispose();
+    }//GEN-LAST:event_btn_exitMouseClicked
+
     int xx,xy;
     /**
      * @param args the command line arguments
@@ -251,20 +359,21 @@ public class CrudMember extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrudMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTransaksiAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrudMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTransaksiAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrudMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTransaksiAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrudMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTransaksiAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrudMember().setVisible(true);
+                new FormTransaksiAdmin().setVisible(true);
             }
         });
     }
@@ -272,16 +381,18 @@ public class CrudMember extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JLabel Judul;
+    private javax.swing.JLabel btn_exit;
+    private javax.swing.JButton btn_konfirmasi;
+    private javax.swing.JButton btn_refresh;
     private org.itenas.uas.view.component.swing.Button btn_search;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.itenas.uas.view.component.swing.TableDark tbl_member;
+    private javax.swing.JLabel lbl_totalHarga;
+    private org.itenas.uas.view.component.swing.TableDark tbl_sewa;
     private org.itenas.uas.view.component.swing.MyTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }
