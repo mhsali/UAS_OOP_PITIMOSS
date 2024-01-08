@@ -5,7 +5,6 @@
 package org.itenas.uas.view.component;
 
 import org.itenas.uas.view.component.swing.Message;
-import com.mysql.cj.x.protobuf.MysqlxConnection;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -38,18 +37,6 @@ import org.itenas.uas.view.component.swing.ShowPasswordCheckBox;
  * @author Win10
  */
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
-
-    public Member getMember() {
-        return member;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public String getId() {
-        return id;
-    }
     
     private Akun akun;
     private Member member;
@@ -61,6 +48,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     private Message.MessageType messageType;
     private Label txtLabel;
     private JLabel hiddenLabel;
+    
+    public PanelLoginAndRegister(){
+        initComponents();
+        login.setVisible(false);
+        register.setVisible(false);
+    }
     
     public PanelLoginAndRegister(ActionListener eventRegister, ActionListener eventLogin) {
         initComponents();
@@ -240,9 +233,9 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
             member = akunService.login(username, Password);
             
             if(member != null){
-                member.setLoginStatus(true);  
+                member.setLoginStatus(true);
                 showMessage(Message.MessageType.SUCCESS, "Login Berhasil!", "login");
-                DashboardUser dashboarduser = new DashboardUser();
+                DashboardUser dashboarduser = new DashboardUser(member);
                 dashboarduser.setVisible(true);
             } else{
                 showMessage(Message.MessageType.ERROR, "Login Gagal", "login");

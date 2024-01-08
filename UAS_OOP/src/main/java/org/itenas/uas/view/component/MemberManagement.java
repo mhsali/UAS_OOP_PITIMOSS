@@ -145,6 +145,7 @@ public class MemberManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1120, 800));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(245, 172, 44));
 

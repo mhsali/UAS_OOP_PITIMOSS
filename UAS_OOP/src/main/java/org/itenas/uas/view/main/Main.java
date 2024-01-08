@@ -4,11 +4,14 @@
  */
 package org.itenas.uas.view.main;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import javax.swing.JFrame;
 import org.itenas.uas.view.component.PanelCover;
 import net.miginfocom.swing.MigLayout;
 import org.itenas.uas.service.AkunService;
@@ -116,6 +119,10 @@ public class Main extends javax.swing.JFrame {
             }
             
         });
+    }
+    
+    public void close() {
+        dispose();
     }
     
     @SuppressWarnings("unchecked")

@@ -53,9 +53,9 @@
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="bacaKomik" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
-                      <Component id="buttonOutLine5" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
+                      <Component id="btn_sewaKomik" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
                       <Component id="bacaBuku" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
-                      <Component id="sewaBuku" alignment="1" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="btn_sewaBuku" alignment="1" min="-2" pref="139" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -67,11 +67,11 @@
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Component id="logo" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="sewaBuku" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="btn_sewaBuku" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="bacaBuku" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                  <Component id="buttonOutLine5" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="btn_sewaKomik" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Component id="bacaKomik" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="294" max="32767" attributes="0"/>
@@ -87,7 +87,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="org.itenas.uas.view.component.swing.ButtonOutLine" name="sewaBuku">
+        <Component class="org.itenas.uas.view.component.swing.ButtonOutLine" name="btn_sewaBuku">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -98,7 +98,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sewaBukuActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_sewaBukuActionPerformed"/>
           </Events>
         </Component>
         <Component class="org.itenas.uas.view.component.swing.ButtonOutLine" name="bacaBuku">
@@ -120,7 +120,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Sewa Baca"/>
+            <Property name="text" type="java.lang.String" value="Baca Komik"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="14" style="1"/>
             </Property>
@@ -129,7 +129,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bacaKomikActionPerformed"/>
           </Events>
         </Component>
-        <Component class="org.itenas.uas.view.component.swing.ButtonOutLine" name="buttonOutLine5">
+        <Component class="org.itenas.uas.view.component.swing.ButtonOutLine" name="btn_sewaKomik">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -140,7 +140,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOutLine5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_sewaKomikActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
