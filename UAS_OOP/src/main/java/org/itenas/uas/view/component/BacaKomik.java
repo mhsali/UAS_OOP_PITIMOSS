@@ -5,7 +5,6 @@
 package org.itenas.uas.view.component;
 
 import java.awt.Color;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,77 +14,80 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import org.itenas.uas.pojo.Baca;
 import org.itenas.uas.pojo.Buku;
+import org.itenas.uas.pojo.Komik;
 import org.itenas.uas.pojo.Member;
 import org.itenas.uas.pojo.Sewa;
+import org.itenas.uas.service.BacaService;
+import org.itenas.uas.service.BukuService;
 import org.itenas.uas.service.MemberService;
 import org.itenas.uas.service.SewaService;
+import org.itenas.uas.service.TransaksiService;
+import org.itenas.uas.serviceimpl.BacaServiceImpl;
 import org.itenas.uas.serviceimpl.BukuServiceImpl;
+import org.itenas.uas.serviceimpl.KomikServiceImpl;
 import org.itenas.uas.serviceimpl.MemberServiceImpl;
 import org.itenas.uas.serviceimpl.SewaServiceImpl;
 import org.itenas.uas.serviceimpl.TransaksiServiceImpl;
-import org.itenas.uas.service.TransaksiService;
 
 /**
  *
  * @author Kelompok 1
  */
-public class SewaBuku extends javax.swing.JFrame {
+public class BacaKomik extends javax.swing.JFrame {
 
-    BukuServiceImpl bukuService;
-    Buku buku;
-    Sewa sewa;
+    BacaServiceImpl bacaService;
+    KomikServiceImpl komikService;
+    Komik komik;
+    Baca baca;
     Member member;
-    SewaService sewaService;
     MemberService memberService;
     TransaksiService transaksiService;
     MessageForm messageForm;
-    static List<Sewa> listSewa = new ArrayList<>();
-    String idBuku;
+    static List<Baca> listBaca = new ArrayList<>();
+    String idKomik;
     boolean cek = false;
     double totalHarga = 0;
-    double harga = 0;
-    double totalBiaya = 0;
     
-    public SewaBuku() {
+    public BacaKomik() {
         initComponents();
         this.setLocationRelativeTo(null);
         comboBoxModel();
         btn_tambah.setEnabled(cek);
-        lbl_hidden.setVisible(cek);
     }
     
     private void emptyField(){
-        cmb_idBuku.setSelectedIndex(0);
+        cmb_idKomik.setSelectedIndex(0);
         txt_judul.setText("");
         txt_pengarang.setText("");
         txt_penerbit.setText("");
         txt_tahunTerbit.setText("");
         txt_harga.setText("");
         txt_status.setText("");
-        chooser_tglSewa.setCalendar(null);
+        txt_volume.setText(idKomik);
         cek = false;
         btn_tambah.setEnabled(cek);
    }
 
     private void comboBoxModel(){
-        bukuService = new BukuServiceImpl();
-        List<Buku> listBuku = new ArrayList<>();
-        listBuku = bukuService.findAll();
-        String[] objectBuku = new String[listBuku.size()+1];
+        komikService = new KomikServiceImpl();
+        List<Komik> listKomik = new ArrayList<>();
+        listKomik = komikService.findAll();
+        String[] objectKomik = new String[listKomik.size()+1];
         
         //Index pertama agar pilihan
-        objectBuku[0] = "Pilih ID Buku";
+        objectKomik[0] = "Pilih ID Komik";
         
         int counter = 1;
         
-        for(Buku buku : listBuku){
-            objectBuku[counter] = buku.getId();
+        for(Komik komik : listKomik){
+            objectKomik[counter] = komik.getId();
             counter++;
         }
         
-        DefaultComboBoxModel<String> bukuModel = new DefaultComboBoxModel<>(objectBuku);
-        cmb_idBuku.setModel(bukuModel);
+        DefaultComboBoxModel<String> komikModel = new DefaultComboBoxModel<>(objectKomik);
+        cmb_idKomik.setModel(komikModel);
     }
     
     
@@ -104,8 +106,7 @@ public class SewaBuku extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txt_idMember = new javax.swing.JTextField();
-        cmb_idBuku = new javax.swing.JComboBox<>();
+        cmb_idKomik = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -123,10 +124,8 @@ public class SewaBuku extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lbl_totalHarga = new javax.swing.JLabel();
         btn_checkout = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        chooser_tglSewa = new com.toedter.calendar.JDateChooser();
-        jLabel14 = new javax.swing.JLabel();
-        lbl_hidden = new javax.swing.JLabel();
+        lbl_status1 = new javax.swing.JLabel();
+        txt_volume = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -137,14 +136,14 @@ public class SewaBuku extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SEWA BUKU");
+        jLabel1.setText("BACA KOMIK");
 
         javax.swing.GroupLayout judulLayout = new javax.swing.GroupLayout(judul);
         judul.setLayout(judulLayout);
         judulLayout.setHorizontalGroup(
             judulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, judulLayout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
+                .addContainerGap(164, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(165, 165, 165))
         );
@@ -158,7 +157,7 @@ public class SewaBuku extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(245, 172, 44));
-        jLabel2.setText(": Buku apa yang ingin Anda pesan kali ini?");
+        jLabel2.setText(" Komik apa yang ingin Anda pesan kali ini?");
 
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(245, 172, 44));
@@ -166,18 +165,11 @@ public class SewaBuku extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(245, 172, 44));
-        jLabel5.setText("ID Buku            :");
+        jLabel5.setText("ID Komik           :");
 
-        txt_idMember.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
-        txt_idMember.addActionListener(new java.awt.event.ActionListener() {
+        cmb_idKomik.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_idMemberActionPerformed(evt);
-            }
-        });
-
-        cmb_idBuku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_idBukuActionPerformed(evt);
+                cmb_idKomikActionPerformed(evt);
             }
         });
 
@@ -241,11 +233,6 @@ public class SewaBuku extends javax.swing.JFrame {
                 btn_tambahMouseClicked(evt);
             }
         });
-        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_tambahActionPerformed(evt);
-            }
-        });
 
         btn_bersihkan.setBackground(new java.awt.Color(245, 172, 44));
         btn_bersihkan.setForeground(new java.awt.Color(255, 255, 255));
@@ -279,24 +266,27 @@ public class SewaBuku extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(245, 172, 44));
-        jLabel13.setText("Tanggal Pengembalian :");
+        lbl_status1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_status1.setForeground(new java.awt.Color(245, 172, 44));
+        lbl_status1.setText("Volume");
 
-        chooser_tglSewa.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(245, 172, 44));
-        jLabel14.setText("ID Member       :");
-
-        lbl_hidden.setForeground(new java.awt.Color(255, 0, 51));
-        lbl_hidden.setText("ID Member tidak ada");
+        txt_volume.setEditable(false);
+        txt_volume.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        txt_volume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_volumeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(judul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_checkout)
+                .addGap(35, 35, 35))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,49 +300,36 @@ public class SewaBuku extends javax.swing.JFrame {
                                 .addComponent(btn_tambah)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_bersihkan))
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chooser_tglSewa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8)
-                                    .addComponent(lbl_status))
+                                    .addComponent(lbl_status)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
                                 .addGap(28, 28, 28)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmb_idBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(txt_idMember, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbl_hidden))
+                                    .addComponent(cmb_idKomik, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txt_status, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                                         .addComponent(txt_harga, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_tahunTerbit, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_penerbit, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_pengarang, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_judul, javax.swing.GroupLayout.Alignment.LEADING)))))
-                        .addGap(81, 91, Short.MAX_VALUE))
+                                        .addComponent(txt_judul, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_volume, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))))
+                        .addGap(171, 181, Short.MAX_VALUE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
+                            .addComponent(lbl_status1)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(60, 60, 60)
+                                .addGap(66, 66, 66)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel4)))))
+                                    .addComponent(jLabel4))))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_checkout)
-                .addGap(35, 35, 35))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,44 +339,39 @@ public class SewaBuku extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(24, 24, 24)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(txt_idMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_hidden))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cmb_idBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cmb_idKomik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txt_judul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txt_pengarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txt_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txt_tahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_status)
                     .addComponent(txt_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(chooser_tglSewa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_status1)
+                    .addComponent(txt_volume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah)
                     .addComponent(btn_bersihkan))
@@ -434,28 +406,29 @@ public class SewaBuku extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_statusActionPerformed
 
-    private void cmb_idBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_idBukuActionPerformed
+    private void cmb_idKomikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_idKomikActionPerformed
     double harga;
-    bukuService = new BukuServiceImpl();
-    buku = new Buku();
-    idBuku = cmb_idBuku.getSelectedItem().toString();
+    komikService = new KomikServiceImpl();
+    komik = new Komik();
+    idKomik = cmb_idKomik.getSelectedItem().toString();
     
-    buku = bukuService.findById(idBuku);
-    if (buku != null) {
-        txt_judul.setText(buku.getJudul());
-        txt_pengarang.setText(buku.getPengarang());
-        txt_penerbit.setText(buku.getPenerbit());
-        txt_tahunTerbit.setText(buku.getTahunTerbit());
-        harga = buku.getHarga();
+    komik = komikService.findById(idKomik);
+    if (komik != null) {
+        txt_judul.setText(komik.getJudul());
+        txt_pengarang.setText(komik.getPengarang());
+        txt_penerbit.setText(komik.getPenerbit());
+        txt_tahunTerbit.setText(komik.getTahunTerbit());
+        harga = komik.getHarga();
         txt_harga.setText("Rp. "+harga);
-        txt_status.setText(buku.getStatus());
+        txt_status.setText(komik.getStatus());
+        txt_volume.setText(komik.getVolume());
 
-        if(buku.getStatus().equals("Tersedia")){
+        if(komik.getStatus().equals("Tersedia")){
             txt_status.setForeground(Color.GREEN);
             cek = true;
             btn_tambah.setEnabled(cek);
         }
-        else if(buku.getStatus().equals("Tidak Tersedia")){
+        else if(komik.getStatus().equals("Tidak Tersedia")){
             txt_status.setForeground(Color.red);
             cek = false;
             btn_tambah.setEnabled(cek);
@@ -463,95 +436,55 @@ public class SewaBuku extends javax.swing.JFrame {
     } else {
         emptyField();
     }
-    }//GEN-LAST:event_cmb_idBukuActionPerformed
+    }//GEN-LAST:event_cmb_idKomikActionPerformed
 
     private void btn_bersihkanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_bersihkanMouseClicked
         emptyField();
     }//GEN-LAST:event_btn_bersihkanMouseClicked
 
-    private void btn_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMouseClicked
-        DashboardUser dashboard = new DashboardUser();
-        dashboard.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_exitMouseClicked
-
     private void btn_tambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahMouseClicked
-String tglSewa, tglKembali, idBuku, idMember;
-double harga = 0;
-double biayaPerHari = 5000; 
-
-Date date = chooser_tglSewa.getDate();
-
-if (date == null) {
-    JOptionPane.showMessageDialog(null, "Silahkan masukkan tanggal terlebih dahulu.", "Tanggal Belum dipilih!", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-
-LocalDate currentDate = LocalDate.now();
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-tglKembali = formatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-tglSewa = formatter.format(currentDate);
-idBuku = cmb_idBuku.getSelectedItem().toString();
-idMember = txt_idMember.getText();
-
-String hargaText = txt_harga.getText();
-String numericPart = hargaText.replace("Rp.", "").replace(",", "");
-harga = Double.parseDouble(numericPart);
-
-sewa = new Sewa();
-sewa.setTglSewa(tglSewa);
-sewa.setTglKembali(tglKembali);
-
-
-java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-java.util.Date datePinjam;
-try {
-    datePinjam = sdf.parse(tglSewa);
-    java.util.Date datePengembalian = sdf.parse(tglKembali);
-    long selisihHari = (datePengembalian.getTime() - datePinjam.getTime()) / (24 * 60 * 60 * 1000);
-
-    if (selisihHari < 0) {
-        JOptionPane.showMessageDialog(this, "Tanggal pengembalian harus setelah tanggal pinjam.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; 
-    }
-    totalBiaya = biayaPerHari * selisihHari;
-    sewa.setTotalHarga(totalBiaya);
-
-} catch (ParseException e) {
-    e.printStackTrace();
-}
-
-sewa.setStatus("Belum dibayar");
-
-buku = new Buku();
-buku.setId(idBuku);
-sewa.setBuku(buku);
-
-member = new Member();
-member.setId(idMember);
-sewa.setMember(member);
-
-listSewa.add(sewa);
-
-btn_checkout.setEnabled(true);
-totalHarga += totalBiaya;
-lbl_totalHarga.setText("Rp. " + totalHarga);
-
-messageForm = new MessageForm();
-messageForm.gantiText("PESAN", "Data Buku berhasil ditambahkan.", "Lanjutkan");
-messageForm.setVisible(true);
-emptyField();
-      
+    String tglTransaksi, idBuku;
+    double harga = 0;
+    idBuku = cmb_idKomik.getSelectedItem().toString();
+    
+    LocalDate currentDate = LocalDate.now();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    tglTransaksi = formatter.format(currentDate);
+    
+    String hargaText = txt_harga.getText();
+    String numericPart = hargaText.replace("Rp.", "").replace(",", "");
+    harga = Double.parseDouble(numericPart);
+    String tglTransaksi1 = tglTransaksi;
+            
+    baca = new Baca();
+    baca.setTglTransaksi(tglTransaksi);
+    baca.setTotalHarga(harga);
+    
+    komik = new Komik();
+    komik.setId(idKomik);
+    baca.setKomik(komik);
+    
+    
+    
+    listBaca.add(baca);
+    
+    btn_checkout.setEnabled(true);
+    totalHarga += harga;
+    lbl_totalHarga.setText("Rp. "+totalHarga);
+    
+    messageForm = new MessageForm();
+    messageForm.gantiText("PESAN", "Data Komik berhasil ditambahkan.", "Lanjutkan");
+    messageForm.setVisible(true);
+    emptyField();
     }//GEN-LAST:event_btn_tambahMouseClicked
 
     private void btn_checkoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_checkoutMouseClicked
         int counter = 0;
-        sewaService = new SewaServiceImpl();
+        bacaService = new BacaServiceImpl();
         transaksiService = new TransaksiServiceImpl();
-        for(Sewa sewa : listSewa){
-            sewaService.create(sewa);
-            transaksiService.updateStatusPeminjamanBuku(sewa);
+        for(Baca baca : listBaca){
+            bacaService.create(baca);
             counter++;
         }
         
@@ -560,28 +493,13 @@ emptyField();
         messageForm.setVisible(true);
     }//GEN-LAST:event_btn_checkoutMouseClicked
 
-    private void txt_idMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idMemberActionPerformed
-        String idMember = txt_idMember.getText();
-        member = new Member();
-        memberService = new MemberServiceImpl();
-        
-        member = memberService.findById(idMember);
-        
-        if(member == null){
-            lbl_hidden.setVisible(true);
-        } else{
-            lbl_hidden.setVisible(false);
-        }
-        
-    }//GEN-LAST:event_txt_idMemberActionPerformed
-
     private void btn_checkoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_checkoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_checkoutActionPerformed
 
-    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+    private void txt_volumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_volumeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_tambahActionPerformed
+    }//GEN-LAST:event_txt_volumeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -600,20 +518,23 @@ emptyField();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SewaBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BacaKomik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SewaBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BacaKomik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SewaBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BacaKomik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SewaBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BacaKomik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SewaBuku().setVisible(true);
+                new BacaKomik().setVisible(true);
             }
         });
     }
@@ -623,13 +544,10 @@ emptyField();
     private javax.swing.JButton btn_bersihkan;
     private javax.swing.JButton btn_checkout;
     private javax.swing.JButton btn_tambah;
-    private com.toedter.calendar.JDateChooser chooser_tglSewa;
-    private javax.swing.JComboBox<String> cmb_idBuku;
+    private javax.swing.JComboBox<String> cmb_idKomik;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -638,15 +556,15 @@ emptyField();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel judul;
-    private javax.swing.JLabel lbl_hidden;
     private javax.swing.JLabel lbl_status;
+    private javax.swing.JLabel lbl_status1;
     private javax.swing.JLabel lbl_totalHarga;
     private javax.swing.JTextField txt_harga;
-    private javax.swing.JTextField txt_idMember;
     private javax.swing.JTextField txt_judul;
     private javax.swing.JTextField txt_penerbit;
     private javax.swing.JTextField txt_pengarang;
     private javax.swing.JTextField txt_status;
     private javax.swing.JTextField txt_tahunTerbit;
+    private javax.swing.JTextField txt_volume;
     // End of variables declaration//GEN-END:variables
 }

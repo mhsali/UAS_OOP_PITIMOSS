@@ -119,16 +119,16 @@ public class TransaksiServiceImpl implements TransaksiService{
         String sql = "";
         
         try{
-            bukuService = new BukuServiceImpl();
-            buku = bukuService.findById(object.getBukuId());
+            komikService = new KomikServiceImpl();
+            komik = komikService.findById(object.getKomikId());
             
-            if(buku.getStatus().equals("Tersedia")){
+            if(komik.getStatus().equals("Tersedia")){
                 sql = "UPDATE komik SET status = 'Tidak Tersedia' "
-                        +"WHERE id_buku = '" +object.getBukuId()+"'";
+                        +"WHERE id_komik = '" +object.getKomikId()+"'";
             }
-            else if(buku.getStatus().equals("Tidak Tersedia")){
+            else if(komik.getStatus().equals("Tidak Tersedia")){
                 sql = "UPDATE komik SET status = 'Tersedia' "
-                        +"WHERE id_buku = '" +object.getBukuId()+"'";
+                        +"WHERE id_komik = '" +object.getKomikId()+"'";
             }
             
             stmt = conn.createStatement();

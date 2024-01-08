@@ -9,7 +9,8 @@ package org.itenas.uas.pojo;
  * @author Kelompok 1
  */
 public class Baca {
-    private String id;
+    
+    private int id;
     private String tglTransaksi;
     private double totalHarga;
     private Buku buku;
@@ -18,14 +19,14 @@ public class Baca {
     public Baca() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getTglTransaksi() {
         return tglTransaksi;
     }
