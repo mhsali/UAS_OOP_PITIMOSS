@@ -544,15 +544,25 @@ String status = tabel_buku.getValueAt(row, 6).toString();
     }//GEN-LAST:event_btn_sewaBukuActionPerformed
 
     private void bacaBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bacaBukuActionPerformed
-        // TODO add your handling code here:
+        BacaBuku formBaca = new BacaBuku();
+        formBaca.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bacaBukuActionPerformed
 
     private void bacaKomikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bacaKomikActionPerformed
-        // TODO add your handling code here:
+        BacaKomik formBaca = new BacaKomik();
+        formBaca.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bacaKomikActionPerformed
 
     private void btn_sewaKomikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sewaKomikActionPerformed
-        // TODO add your handling code here:
+        if(!isLogin){
+            JOptionPane.showMessageDialog(null, "Anda Harus Login");
+        } else{
+            SewaKomik formSewa = new SewaKomik();
+            formSewa.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btn_sewaKomikActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
