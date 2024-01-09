@@ -4,11 +4,18 @@
  */
 package org.itenas.uas.view.component;
 
+import java.awt.image.BufferedImage;
+import net.coobird.thumbnailator.Thumbnails;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import org.itenas.uas.pojo.Buku;
 import org.itenas.uas.pojo.Komik;
@@ -63,6 +70,7 @@ public class FormPengembalian extends javax.swing.JFrame {
         txt_tglSewa.setText("");
         txt_tglKembali.setText("");
         lbl_denda.setText("-");
+        lbl_image.setIcon(null);
     }
     
     public void loadTabel(String idMember){
@@ -144,11 +152,14 @@ public class FormPengembalian extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         lbl_hidden = new javax.swing.JLabel();
         btn_cancel = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 172, 44));
 
@@ -187,6 +198,8 @@ public class FormPengembalian extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
+        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 924, -1));
+
         tbl_sewa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -205,6 +218,8 @@ public class FormPengembalian extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_sewa);
 
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 351, 650, 206));
+
         txt_idMember.setBackground(new java.awt.Color(255, 255, 255));
         txt_idMember.setForeground(new java.awt.Color(0, 0, 0));
         txt_idMember.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(245, 172, 44)));
@@ -213,61 +228,76 @@ public class FormPengembalian extends javax.swing.JFrame {
                 txt_idMemberActionPerformed(evt);
             }
         });
+        bg.add(txt_idMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 153, 80, -1));
 
         txt_nama.setBackground(new java.awt.Color(255, 255, 255));
         txt_nama.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 153, 124, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user icon.png"))); // NOI18N
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(245, 172, 44));
         jLabel3.setText("ID Member");
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 112, -1, -1));
 
         txt_alamat.setBackground(new java.awt.Color(255, 255, 255));
         txt_alamat.setForeground(new java.awt.Color(0, 0, 0));
         txt_alamat.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 183, 244, -1));
 
         txt_email.setBackground(new java.awt.Color(255, 255, 255));
         txt_email.setForeground(new java.awt.Color(0, 0, 0));
         txt_email.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 212, 244, -1));
 
         txt_noTelp.setBackground(new java.awt.Color(255, 255, 255));
         txt_noTelp.setForeground(new java.awt.Color(0, 0, 0));
         txt_noTelp.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_noTelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 241, 244, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(245, 172, 44));
         jLabel4.setText("Daftar Penyewaan");
+        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 322, -1, -1));
 
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("*tekan Enter pada kolom ID Member setelah menginput untuk memunculkan data");
+        bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 275, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(245, 172, 44));
         jLabel6.setText("ID Bacaan");
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 125, -1, -1));
 
         txt_idBacaan.setEditable(false);
         txt_idBacaan.setBackground(new java.awt.Color(255, 255, 255));
         txt_idBacaan.setForeground(new java.awt.Color(0, 0, 0));
         txt_idBacaan.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_idBacaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(724, 125, 72, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(245, 172, 44));
         jLabel7.setText("Judul");
+        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 175, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(245, 172, 44));
         jLabel8.setText("Pengarang");
+        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 211, -1, -1));
 
         txt_judul.setEditable(false);
         txt_judul.setBackground(new java.awt.Color(255, 255, 255));
         txt_judul.setForeground(new java.awt.Color(0, 0, 0));
         txt_judul.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_judul, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 175, 131, -1));
 
         txt_pengarang.setEditable(false);
         txt_pengarang.setBackground(new java.awt.Color(255, 255, 255));
         txt_pengarang.setForeground(new java.awt.Color(0, 0, 0));
         txt_pengarang.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_pengarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 211, 131, -1));
 
         btn_oke.setBackground(new java.awt.Color(102, 255, 153));
         btn_oke.setForeground(new java.awt.Color(255, 255, 255));
@@ -278,34 +308,42 @@ public class FormPengembalian extends javax.swing.JFrame {
                 btn_okeMouseClicked(evt);
             }
         });
+        bg.add(btn_oke, new org.netbeans.lib.awtextra.AbsoluteConstraints(837, 121, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(245, 172, 44));
         jLabel9.setText("Tanggal Sewa");
+        bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(588, 256, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(245, 172, 44));
         jLabel10.setText("Tanggal Pengembalian");
+        bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(727, 256, -1, -1));
 
         txt_tglSewa.setBackground(new java.awt.Color(255, 255, 255));
         txt_tglSewa.setForeground(new java.awt.Color(0, 0, 0));
         txt_tglSewa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_tglSewa, new org.netbeans.lib.awtextra.AbsoluteConstraints(576, 290, 120, -1));
 
         txt_tglKembali.setBackground(new java.awt.Color(255, 255, 255));
         txt_tglKembali.setForeground(new java.awt.Color(0, 0, 0));
         txt_tglKembali.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(245, 172, 44)));
+        bg.add(txt_tglKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 140, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setText("Total Denda");
+        bg.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 351, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Rp. ");
+        bg.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 391, -1, -1));
 
         lbl_denda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbl_denda.setForeground(new java.awt.Color(102, 102, 102));
         lbl_denda.setText("-");
+        bg.add(lbl_denda, new org.netbeans.lib.awtextra.AbsoluteConstraints(758, 391, -1, -1));
 
         btn_pengembalian.setBackground(new java.awt.Color(102, 255, 102));
         btn_pengembalian.setForeground(new java.awt.Color(255, 255, 255));
@@ -315,13 +353,16 @@ public class FormPengembalian extends javax.swing.JFrame {
                 btn_pengembalianMouseClicked(evt);
             }
         });
+        bg.add(btn_pengembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 494, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
         jLabel13.setText("Konfirmasi Pengembalian?");
+        bg.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 452, -1, -1));
 
         lbl_hidden.setForeground(new java.awt.Color(255, 51, 51));
         lbl_hidden.setText("Data Member tidak ada!");
+        bg.add(lbl_hidden, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 115, -1, -1));
 
         btn_cancel.setBackground(new java.awt.Color(255, 0, 0));
         btn_cancel.setForeground(new java.awt.Color(255, 255, 255));
@@ -331,152 +372,30 @@ public class FormPengembalian extends javax.swing.JFrame {
                 btn_cancelMouseClicked(evt);
             }
         });
+        bg.add(btn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 494, -1, -1));
 
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
-        bg.setLayout(bgLayout);
-        bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jLabel3)
-                        .addGap(431, 431, 431)
-                        .addComponent(jLabel6)
-                        .addGap(22, 22, 22)
-                        .addComponent(txt_idBacaan, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btn_oke))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2)
-                        .addGap(15, 15, 15)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_noTelp, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(txt_idMember, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_hidden)
-                                    .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(217, 217, 217)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))))
-                        .addGap(18, 18, 18)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_judul, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_pengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel10))))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel5)
-                        .addGap(119, 119, 119)
-                        .addComponent(txt_tglSewa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(txt_tglKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbl_denda))
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(btn_pengembalian)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_cancel))
-                                    .addComponent(jLabel13))))))
-                .addGap(0, 15, Short.MAX_VALUE))
+        jDesktopPane1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jDesktopPane1.setLayer(lbl_image, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_image, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(lbl_hidden))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel6))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(txt_idBacaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(btn_oke)))
-                .addGap(2, 2, 2)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_idMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(txt_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(txt_noTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel7)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel8)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel9))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(txt_judul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_pengarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel10)))
-                .addGap(2, 2, 2)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_tglKembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_tglSewa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(15, 15, 15)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(lbl_denda))
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel13)
-                        .addGap(26, 26, 26)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_pengembalian)
-                            .addComponent(btn_cancel))))
-                .addContainerGap(45, Short.MAX_VALUE))
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_image, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 140));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -509,6 +428,34 @@ public class FormPengembalian extends javax.swing.JFrame {
             txt_noTelp.setText(member.getNomorTelp());
             
             loadTabel(idMember);
+            
+            try {
+                // Get the URL of the image
+                URL imageURL = getClass().getResource("/images/"+idMember+".jpg");
+
+                 BufferedImage originalImage = ImageIO.read(imageURL);
+
+            // Resize the image to your desired dimensions (180x220 in this case)
+            BufferedImage resizedImage = Thumbnails.of(originalImage)
+                    .size(88, 128)
+                    .asBufferedImage();
+
+            // Create an ImageIcon from the resized image
+            ImageIcon icon = new ImageIcon(resizedImage);
+
+            // Set the ImageIcon to a label or wherever you want to display it
+            lbl_image.setIcon(icon);
+
+            // If you need to convert it to a byte array, you can do so
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(resizedImage, "png", baos);
+            byte[] imageData = baos.toByteArray();
+    
+                // Now, 'imageData' contains the byte array representation of the image
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+
         }else{
             lbl_hidden.setVisible(true);
             emptyField();
@@ -655,6 +602,7 @@ public class FormPengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel btn_exit;
     private javax.swing.JButton btn_oke;
     private javax.swing.JButton btn_pengembalian;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -672,6 +620,7 @@ public class FormPengembalian extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_denda;
     private javax.swing.JLabel lbl_hidden;
+    private javax.swing.JLabel lbl_image;
     private org.itenas.uas.view.component.swing.TableDark tbl_sewa;
     private javax.swing.JTextField txt_alamat;
     private javax.swing.JTextField txt_email;
